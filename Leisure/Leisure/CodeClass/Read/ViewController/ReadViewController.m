@@ -9,18 +9,33 @@
 #import "ReadViewController.h"
 #import "ReadDetailViewController.h"
 #import "ReadCarouselModel.h"
+#import "WheelView.h"
 
 
 #define kWidth [[UIScreen mainScreen] bounds].size.width
 #define kHeight [[UIScreen mainScreen] bounds].size.height
 
-@interface ReadViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ReadViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *ListDataArray;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) NSMutableArray *carouselArray;//轮播图数据源
+
+//轮播滚动视图
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+//轮播图数据源
+@property (nonatomic, strong) NSMutableArray *imageArray;
+
+//控制轮播图滚动
+@property (nonatomic, strong) NSTimer *timer;
+
+//标记当前位置
+@property (nonatomic, assign) NSInteger nowIndex;
+
+@property (nonatomic, strong) WheelView *testScrollView;
 
 
 
@@ -39,10 +54,21 @@
 - (NSMutableArray *)carouselArray {
     if (!_carouselArray) {
         self.carouselArray = [NSMutableArray array];
+        
     }
     return _carouselArray;
 }
 
+
+- (NSMutableArray *)imageArray {
+    if (!_imageArray) {
+        _imageArray = [NSMutableArray array];
+    }
+    return _imageArray;
+}
+
+
+//请求数据
 - (void)requstData {
     [NetWorkRequestManager requestWithType:POST urlString:READLIST_URL parDic:nil requestFinish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
@@ -67,12 +93,9 @@
         
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_async(mainQueue, ^{
-            
-            NSLog(@"list %@",self.ListDataArray);
-            
-            NSLog(@"carousel %@",self.carouselArray);
-            
             [_collectionView reloadData];
+            [self createScrollSubviews];
+            
         });
         
         
@@ -87,14 +110,148 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _nowIndex = 0;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"阅读";
-        
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164)];
+    _scrollView.delegate = self;
+    _scrollView.contentSize = CGSizeMake(ScreenWidth * 3, 0);
+    _scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
+    _scrollView.pagingEnabled = YES;
+    [self.view addSubview:self.scrollView];
+    
     [self requstData];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scroll) userInfo:nil repeats:YES];
     
     [self createCollectionView];
 }
 
+
+- (void)scroll {
+    
+    [self.scrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
+    
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetX = scrollView.contentOffset.x;
+    if (offsetX >= ScreenWidth * 2) {
+        _nowIndex =  [self getNextIndex:_nowIndex + 1];
+        [self createScrollSubviews];
+    } else if (offsetX <= 0) {
+        _nowIndex =  [self getNextIndex:_nowIndex - 1];
+        [self createScrollSubviews];
+    }
+}
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    //让计时器在未来开启 相当于暂停功能
+    [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
+}
+
+
+
+- (void)downLoadImageWithModel:(ReadCarouselModel *)model {
+    
+    [NetWorkRequestManager requestWithType:GET urlString:model.img parDic:nil requestFinish:^(NSData *data) {
+
+        UIImage *image = [UIImage imageWithData:data];
+        [self.imageArray addObject:image];
+    } requsetError:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
+
+- (void)setScrollData {
+    
+    [self.imageArray removeAllObjects];
+    
+    NSInteger befIndex = [self getNextIndex:_nowIndex - 1];
+    NSInteger aftIndex = [self getNextIndex:_nowIndex + 1];
+    
+//    [self downLoadImageWithModel:self.carouselArray[befIndex]];
+//    [self downLoadImageWithModel:self.carouselArray[_nowIndex]];
+//    [self downLoadImageWithModel:self.carouselArray[aftIndex]];
+    
+    
+    [self.imageArray addObject:self.carouselArray[befIndex]];
+    [self.imageArray addObject:self.carouselArray[_nowIndex]];
+    [self.imageArray addObject:self.carouselArray[aftIndex]];
+}
+
+- (void)createScrollSubviews {
+    
+    for (UIView *view in self.scrollView.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    
+    [self setScrollData];
+    
+    
+    for (int i = 0; i < self.imageArray.count; i ++) {
+        
+        ReadCarouselModel *model = self.imageArray[i];
+
+        [NetWorkRequestManager requestWithType:GET urlString:model.img parDic:nil requestFinish:^(NSData *data) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * i, 0, ScreenWidth, 200)];
+            UIImage *image = [UIImage imageWithData:data];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                imageView.image = image;
+                [self.scrollView addSubview:imageView];
+            });
+            
+            
+        } requsetError:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+        
+    }
+    
+//    for (int i = 0; i < self.imageArray.count; i ++) {
+//        
+//        UIImage *image = self.imageArray[i];
+//        
+//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 164)];
+//        imageView.image = image;
+//        
+//        [self.scrollView addSubview:imageView];
+//    }
+
+    
+    self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
+    
+    
+    
+}
+
+//获取数组中元素对应的位置
+- (NSInteger)getNextIndex:(NSInteger)index {
+    if (index == -1) {
+        return self.carouselArray.count - 1;
+    } else if (index == self.carouselArray.count) {
+        return 0;
+    } else {
+        return index;
+    }
+}
+
+
+//创建集合视图
 - (void)createCollectionView { 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     //设置行之间的最小间隔
@@ -108,7 +265,7 @@
     //设置分区上下左右的边距
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 164, kWidth, kHeight - 164) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, kWidth, kHeight - 164) collectionViewLayout:layout];
     _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;

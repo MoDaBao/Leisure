@@ -12,7 +12,7 @@
 #import "RadioDetailViewController.h"
 #import "RadioListModelCell.h"
 
-@interface RadioViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface RadioViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic) NSInteger start;
 
@@ -27,6 +27,9 @@
 @property (nonatomic, strong) NSMutableArray *hotListArray;
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 
 
 @end
@@ -141,7 +144,7 @@
     [self requsetDataFirst];
     
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, ScreenWidth, ScreenHeight - 164) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, ScreenWidth, ScreenHeight - 164) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -150,8 +153,12 @@
     [self.view addSubview:self.tableView];
     
     
-    
-//    [self requestRefreshData];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164)];
+    self.scrollView.delegate = self;
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.contentSize = CGSizeMake(ScreenWidth, 0);
+    self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
+    [self.view addSubview:self.scrollView];
     
     
 
@@ -173,15 +180,6 @@
     
     BaseModel *model = self.allListArray[indexPath.row];
     BaseTableViewCell *cell = [FactoryTableViewCell createTableViewCell:model andTableView:tableView andIndexPath:indexPath];
-    
-//    RadioListModelCell *modelCell = ((RadioListModelCell *)cell);
-//    RadioListModel *radiomodel = (RadioListModel *)model;
-//    
-//    modelCell.titleLabel.text = radiomodel.title;
-//    modelCell.descLabel.text = radiomodel.desc;
-//    modelCell.unameLabel.text = radiomodel.userInfo.uname;
-//    modelCell.countLabel.text = radiomodel.count;
-    
     
     [cell setDataWithModel:model];
     
