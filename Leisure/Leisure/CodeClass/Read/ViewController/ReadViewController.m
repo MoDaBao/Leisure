@@ -67,6 +67,27 @@
     return _imageArray;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    _nowIndex = 0;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"阅读";
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164)];
+    _scrollView.delegate = self;
+    _scrollView.contentSize = CGSizeMake(ScreenWidth * 3, 0);
+    _scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
+    _scrollView.pagingEnabled = YES;
+    [self.view addSubview:self.scrollView];
+    
+    [self requstData];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scroll) userInfo:nil repeats:YES];
+    
+    [self createCollectionView];
+}
 
 //请求数据
 - (void)requstData {
@@ -94,6 +115,7 @@
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_async(mainQueue, ^{
             [_collectionView reloadData];
+//            [self.collectionView.mj_header endRefreshing];
             [self createScrollSubviews];
             
         });
@@ -107,27 +129,7 @@
 
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    _nowIndex = 0;
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"阅读";
-    
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164)];
-    _scrollView.delegate = self;
-    _scrollView.contentSize = CGSizeMake(ScreenWidth * 3, 0);
-    _scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
-    _scrollView.pagingEnabled = YES;
-    [self.view addSubview:self.scrollView];
-    
-    [self requstData];
-    
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scroll) userInfo:nil repeats:YES];
-    
-    [self createCollectionView];
-}
+
 
 
 - (void)scroll {
@@ -159,31 +161,12 @@
 }
 
 
-
-- (void)downLoadImageWithModel:(ReadCarouselModel *)model {
-    
-    [NetWorkRequestManager requestWithType:GET urlString:model.img parDic:nil requestFinish:^(NSData *data) {
-
-        UIImage *image = [UIImage imageWithData:data];
-        [self.imageArray addObject:image];
-    } requsetError:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
-    
-}
-
-
 - (void)setScrollData {
     
     [self.imageArray removeAllObjects];
     
     NSInteger befIndex = [self getNextIndex:_nowIndex - 1];
     NSInteger aftIndex = [self getNextIndex:_nowIndex + 1];
-    
-//    [self downLoadImageWithModel:self.carouselArray[befIndex]];
-//    [self downLoadImageWithModel:self.carouselArray[_nowIndex]];
-//    [self downLoadImageWithModel:self.carouselArray[aftIndex]];
-    
     
     [self.imageArray addObject:self.carouselArray[befIndex]];
     [self.imageArray addObject:self.carouselArray[_nowIndex]];
@@ -204,34 +187,12 @@
     for (int i = 0; i < self.imageArray.count; i ++) {
         
         ReadCarouselModel *model = self.imageArray[i];
-
-        [NetWorkRequestManager requestWithType:GET urlString:model.img parDic:nil requestFinish:^(NSData *data) {
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * i, 0, ScreenWidth, 200)];
-            UIImage *image = [UIImage imageWithData:data];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                imageView.image = image;
-                [self.scrollView addSubview:imageView];
-            });
-            
-            
-        } requsetError:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * i, 0, ScreenWidth, 200)];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:model.img]];
+        [self.scrollView addSubview:imageView];
         
         
     }
-    
-//    for (int i = 0; i < self.imageArray.count; i ++) {
-//        
-//        UIImage *image = self.imageArray[i];
-//        
-//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 164)];
-//        imageView.image = image;
-//        
-//        [self.scrollView addSubview:imageView];
-//    }
-
     
     self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
     
@@ -274,6 +235,10 @@
     [_collectionView registerNib:[UINib nibWithNibName:@"ReadListModelCell" bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([ReadListModel class])];
     
     [self.view addSubview:_collectionView];
+    
+    
+    
+    
 }
 
 

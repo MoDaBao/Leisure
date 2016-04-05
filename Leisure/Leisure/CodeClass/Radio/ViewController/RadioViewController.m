@@ -11,6 +11,8 @@
 #import "RadioCarouselModel.h"
 #import "RadioDetailViewController.h"
 #import "RadioListModelCell.h"
+#import "CycleScrollView.h"
+
 
 @interface RadioViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate>
 
@@ -28,8 +30,9 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+//@property (nonatomic, strong) UIScrollView *scrollView;
 
+@property (nonatomic, strong) CycleScrollView *scrollView;
 
 
 @end
@@ -58,8 +61,8 @@
 }
 
 //上拉刷新请求
-- (void)requestRefreshData {
-    [NetWorkRequestManager requestWithType:POST urlString:RADIOMLISTMORE_URL parDic:@{@"start":@(self.start), @"limit":@(self.limit)} requestFinish:^(NSData *data) {
+- (void)loadMoreData {
+    [NetWorkRequestManager requestWithType:POST urlString:RADIOMLISTMORE_URL parDic:@{@"start":@(self.start += 10), @"limit":@(self.limit)} requestFinish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
         
         //获取所有电台列表数据
@@ -75,7 +78,8 @@
         
         //回到主队列操作UI
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            [self.tableView reloadData];
+            [self.tableView.mj_footer endRefreshing];
         });
         
 
@@ -85,9 +89,10 @@
 }
 
 //首次请求
-- (void)requsetDataFirst {
-    [NetWorkRequestManager requestWithType:POST urlString:RADIOLIST_URL parDic:nil requestFinish:^(NSData *data) {
+- (void)loadNewData {
+    [NetWorkRequestManager requestWithType:POST urlString:RADIOLIST_URL parDic:@{@"limit":@(self.start + 10)} requestFinish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+        [self.allListArray removeAllObjects];
         
         //获取所有电台列表数据
         NSArray *allListArray = dataDic[@"data"][@"alllist"];
@@ -125,8 +130,12 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"alllist %@",self.allListArray);
             [self.tableView reloadData];
-
             
+            if (self.scrollView == nil) {
+                [self createScrollView];
+            }
+            
+            [self.tableView.mj_header endRefreshing];
         });
         
     } requsetError:^(NSError *error) {
@@ -134,15 +143,33 @@
     }];
 }
 
+//创建滚动视图
+- (void)createScrollView {
+    self.scrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164) animationDuration:2.0];
+    
+    
+    self.scrollView.fetchContentViewAtIndex = ^ UIView * (NSInteger pageIndex) {
+        RadioCarouselModel *model = self.carouselArray[pageIndex];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * pageIndex, 0, ScreenWidth, self.scrollView.frame.size.height)];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:model.img]];
+        return imageView;
+    };
+    
+    [self.scrollView setTotalPagesCount:self.carouselArray.count];
+    
+    [self.view addSubview:self.scrollView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor orangeColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
+    self.limit = 10;
+ 
     self.navigationItem.title = @"电台";
     
-    [self requsetDataFirst];
-    
+    [self loadNewData];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, ScreenWidth, ScreenHeight - 164) style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -153,16 +180,23 @@
     [self.view addSubview:self.tableView];
     
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164)];
-    self.scrollView.delegate = self;
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(ScreenWidth, 0);
-    self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
-    [self.view addSubview:self.scrollView];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+    }];
     
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     
-
+    // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
+    
+    //上拉加载更多
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    
 }
+
+
+#pragma mark ----tableView代理-----
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -187,7 +221,6 @@
     
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RadioDetailViewController *detailVC = [[RadioDetailViewController alloc] init];
     RadioListModel *model = self.allListArray[indexPath.row];
@@ -195,6 +228,7 @@
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
+
 
 
 

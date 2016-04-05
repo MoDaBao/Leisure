@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AF9489EC15F749C9867754E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FFEDF08E26B5CF06AC22241 /* libPods.a */; };
+		E70E276C1CB358B60092B426 /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E70E276B1CB358B60092B426 /* CycleScrollView.m */; };
+		E70E276F1CB358C30092B426 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E70E276E1CB358C30092B426 /* NSTimer+Addition.m */; };
+		E70E27721CB37D930092B426 /* TopicListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E70E27711CB37D930092B426 /* TopicListModelCell.m */; };
+		E70E27741CB37DB00092B426 /* TopicListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70E27731CB37DB00092B426 /* TopicListModelCell.xib */; };
+		E70E27771CB3AEBD0092B426 /* ProductListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E70E27761CB3AEBD0092B426 /* ProductListModelCell.m */; };
+		E70E27791CB3AED70092B426 /* ProductListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70E27781CB3AED70092B426 /* ProductListModelCell.xib */; };
 		E72C36BB1CAA6AFE00241C73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C36BA1CAA6AFE00241C73 /* main.m */; };
 		E72C36BE1CAA6AFE00241C73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C36BD1CAA6AFE00241C73 /* AppDelegate.m */; };
 		E72C36C11CAA6AFE00241C73 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C36C01CAA6AFE00241C73 /* ViewController.m */; };
@@ -91,6 +98,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FFEDF08E26B5CF06AC22241 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E5D8398D5AB0089029D7A1F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E70E276A1CB358B60092B426 /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
+		E70E276B1CB358B60092B426 /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
+		E70E276D1CB358C30092B426 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		E70E276E1CB358C30092B426 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
+		E70E27701CB37D930092B426 /* TopicListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicListModelCell.h; sourceTree = "<group>"; };
+		E70E27711CB37D930092B426 /* TopicListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicListModelCell.m; sourceTree = "<group>"; };
+		E70E27731CB37DB00092B426 /* TopicListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicListModelCell.xib; sourceTree = "<group>"; };
+		E70E27751CB3AEBD0092B426 /* ProductListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListModelCell.h; sourceTree = "<group>"; };
+		E70E27761CB3AEBD0092B426 /* ProductListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListModelCell.m; sourceTree = "<group>"; };
+		E70E27781CB3AED70092B426 /* ProductListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductListModelCell.xib; sourceTree = "<group>"; };
 		E72C36B61CAA6AFE00241C73 /* Leisure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leisure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E72C36BA1CAA6AFE00241C73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E72C36BC1CAA6AFE00241C73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -203,6 +222,7 @@
 		E7FEE6ED1CABFAD20022A97B /* TopicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicInfoViewController.h; sourceTree = "<group>"; };
 		E7FEE6EE1CABFAD20022A97B /* TopicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicInfoViewController.m; sourceTree = "<group>"; };
 		E7FEE6EF1CABFAD20022A97B /* TopicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicInfoViewController.xib; sourceTree = "<group>"; };
+		EECD7B2D2D9A2C24DF1BD66C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AF9489EC15F749C9867754E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +251,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43B5BD60BBED24E653A85283 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9E5D8398D5AB0089029D7A1F /* Pods.debug.xcconfig */,
+				EECD7B2D2D9A2C24DF1BD66C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E72C36AD1CAA6AFE00241C73 = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +267,8 @@
 				E72C36D21CAA6AFE00241C73 /* LeisureTests */,
 				E72C36DD1CAA6AFE00241C73 /* LeisureUITests */,
 				E72C36B71CAA6AFE00241C73 /* Products */,
+				43B5BD60BBED24E653A85283 /* Pods */,
+				EE357508FEE64B3044EF1DA4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -316,6 +348,8 @@
 				E78E17141CACBBD60022A252 /* FactoryCollectionViewCell.m */,
 				E7662A2D1CB120D0007EA583 /* WheelView.h */,
 				E7662A2E1CB120D0007EA583 /* WheelView.m */,
+				E70E276A1CB358B60092B426 /* CycleScrollView.h */,
+				E70E276B1CB358B60092B426 /* CycleScrollView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -383,6 +417,9 @@
 		E72C36F21CAA6C1600241C73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E70E27751CB3AEBD0092B426 /* ProductListModelCell.h */,
+				E70E27761CB3AEBD0092B426 /* ProductListModelCell.m */,
+				E70E27781CB3AED70092B426 /* ProductListModelCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -532,6 +569,9 @@
 		E72C36FE1CAA6C1600241C73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E70E27701CB37D930092B426 /* TopicListModelCell.h */,
+				E70E27711CB37D930092B426 /* TopicListModelCell.m */,
+				E70E27731CB37DB00092B426 /* TopicListModelCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -560,8 +600,18 @@
 				E7E131991CAABCB500C8967F /* URLHeaderDefine.h */,
 				E78E17251CAD1DAA0022A252 /* ConstantHeaderDefine.h */,
 				E7FEE6CF1CABB42C0022A97B /* PrefixHeader.pch */,
+				E70E276D1CB358C30092B426 /* NSTimer+Addition.h */,
+				E70E276E1CB358C30092B426 /* NSTimer+Addition.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		EE357508FEE64B3044EF1DA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4FFEDF08E26B5CF06AC22241 /* libPods.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -571,9 +621,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E72C36E31CAA6AFE00241C73 /* Build configuration list for PBXNativeTarget "Leisure" */;
 			buildPhases = (
+				69EE0F287F96E8405DCD80B5 /* Check Pods Manifest.lock */,
 				E72C36B21CAA6AFE00241C73 /* Sources */,
 				E72C36B31CAA6AFE00241C73 /* Frameworks */,
 				E72C36B41CAA6AFE00241C73 /* Resources */,
+				6360892DB7BC39438C250D0F /* Embed Pods Frameworks */,
+				C85BC1ED9FD6FD3DE519D229 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -670,6 +723,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70E27741CB37DB00092B426 /* TopicListModelCell.xib in Resources */,
 				E7FEE6EC1CABEEF40022A97B /* RadioPlayViewController.xib in Resources */,
 				E72C36C91CAA6AFE00241C73 /* LaunchScreen.storyboard in Resources */,
 				E72C37161CAA6EEE00241C73 /* MenuViewController.xib in Resources */,
@@ -684,6 +738,7 @@
 				E7FEE6BF1CAB81E70022A97B /* ProductInfoViewController.xib in Resources */,
 				E78E171A1CACC15A0022A252 /* ReadListModelCell.xib in Resources */,
 				E7FEE6DD1CABD3740022A97B /* RadioDetailViewController.xib in Resources */,
+				E70E27791CB3AED70092B426 /* ProductListModelCell.xib in Resources */,
 				E72C370B1CAA6E5D00241C73 /* ReadViewController.xib in Resources */,
 				E78E170F1CACB7DA0022A252 /* BaseTableViewCell.xib in Resources */,
 				E72C36C41CAA6AFE00241C73 /* Main.storyboard in Resources */,
@@ -711,6 +766,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6360892DB7BC39438C250D0F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69EE0F287F96E8405DCD80B5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C85BC1ED9FD6FD3DE519D229 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E72C36B21CAA6AFE00241C73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -722,11 +825,14 @@
 				E78E17181CACC0E70022A252 /* ReadListModelCell.m in Sources */,
 				E7E1319F1CAABEE300C8967F /* ReadListModel.m in Sources */,
 				E72C36C11CAA6AFE00241C73 /* ViewController.m in Sources */,
+				E70E276F1CB358C30092B426 /* NSTimer+Addition.m in Sources */,
 				E7FEE6DC1CABD3740022A97B /* RadioDetailViewController.m in Sources */,
 				E7FEE6CB1CABB0580022A97B /* TopicCounterListModel.m in Sources */,
 				E78E171D1CACD1640022A252 /* ReadDetailModelCell.m in Sources */,
 				E7E1318A1CAAA01800C8967F /* ProductViewController.m in Sources */,
+				E70E27771CB3AEBD0092B426 /* ProductListModelCell.m in Sources */,
 				E7FEE6BA1CAB7E620022A97B /* ProductListModel.m in Sources */,
+				E70E27721CB37D930092B426 /* TopicListModelCell.m in Sources */,
 				E7FEE6F01CABFAD20022A97B /* TopicInfoViewController.m in Sources */,
 				E72C37051CAA6E4200241C73 /* BaseViewController.m in Sources */,
 				E7FEE6BE1CAB81E70022A97B /* ProductInfoViewController.m in Sources */,
@@ -753,6 +859,7 @@
 				E7E131941CAAA06900C8967F /* TopicViewController.m in Sources */,
 				E78E17151CACBBD60022A252 /* FactoryCollectionViewCell.m in Sources */,
 				E7FEE6B41CAB6FD70022A97B /* ReadDetailModel.m in Sources */,
+				E70E276C1CB358B60092B426 /* CycleScrollView.m in Sources */,
 				E72C36BB1CAA6AFE00241C73 /* main.m in Sources */,
 				E7FAFC2D1CAB6D2900DBAD25 /* ReadDetailViewController.m in Sources */,
 				E7FEE6D21CABC0760022A97B /* RadioListModel.m in Sources */,
@@ -894,6 +1001,7 @@
 		};
 		E72C36E41CAA6AFE00241C73 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E5D8398D5AB0089029D7A1F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = Leisure/Tools/PrefixHeader.pch;
@@ -908,6 +1016,7 @@
 		};
 		E72C36E51CAA6AFE00241C73 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EECD7B2D2D9A2C24DF1BD66C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = Leisure/Tools/PrefixHeader.pch;

@@ -12,13 +12,15 @@
 #import "ProductListModel.h"
 #import "ProductInfoViewController.h"
 
-@interface ProductViewController ()
+@interface ProductViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) NSInteger start;//请求开始位置
 
 @property (nonatomic) NSInteger limit;//请求条数
 
 @property (nonatomic, strong) NSMutableArray *listArray;
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -47,10 +49,12 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //测试
-            ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
-            ProductListModel *model = self.listArray[0];
-            infoVC.contentid = model.contentid;
-            [self.navigationController pushViewController:infoVC animated:YES];
+//            ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
+//            ProductListModel *model = self.listArray[0];
+//            infoVC.contentid = model.contentid;
+//            [self.navigationController pushViewController:infoVC animated:YES];
+            
+            [self.tableView reloadData];
         });
         
     } requsetError:^(NSError *error) {
@@ -61,11 +65,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"良品";
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, ScreenHeight - kNavigationBarHeight) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ProductListModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([ProductListModel class])];
+    
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.view addSubview:self.tableView];
+    
     
     [self requstData];
 }
+
+
+#pragma mark -----tableView-----
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.listArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 250;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BaseModel *model = self.listArray[indexPath.row];
+    BaseTableViewCell *cell = [FactoryTableViewCell createTableViewCell:model andTableView:tableView andIndexPath:indexPath];
+    
+    [cell setDataWithModel:model];
+    
+    return cell;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

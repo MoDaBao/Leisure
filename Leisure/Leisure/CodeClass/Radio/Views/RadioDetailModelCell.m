@@ -14,21 +14,7 @@
     self.titleLabel.text = model.title;
     self.musicVisit.text = model.musicVisit;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:model.coverimg];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.coverImageView.image = [UIImage imageWithData:data];
-            });
-        }];
-        
-        [task resume];
-        
-        
-    });
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
 }
 
 

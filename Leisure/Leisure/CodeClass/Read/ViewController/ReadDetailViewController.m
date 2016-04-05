@@ -10,7 +10,7 @@
 #import "ReadDetailModel.h"
 #import "ReadDetailModelCell.h"
 
-@interface ReadDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ReadDetailViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic) NSInteger start;//请求开始的位置
 
@@ -23,6 +23,12 @@
 @property (nonatomic, assign) NSInteger requestSort;//请求数据的类型 0最新 1热门
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIScrollView *scrollView;//滚动视图
+
+@property (nonatomic, strong) UITableView *hotTableView;//热门表视图
+
+@property (nonatomic, strong) UISegmentedControl *segment;
 
 
 @end
@@ -43,65 +49,161 @@
     return _addtimeListArray;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+#pragma mark -----创建视图-----
+
+//创建滚动视图
+- (void)createScrollView {
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, ScreenHeight - kNavigationBarHeight)];
+    
+    self.scrollView.contentSize = CGSizeMake(ScreenWidth * 2, 0);
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    self.scrollView.delegate = self;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
     
     
-    _requestSort = 0;//默认请求最新
+    [self.view addSubview:self.scrollView];
+}
+
+//创建热门表视图
+- (void)createHotTableView {
     
-    [self requestWithSort:@"addtime"];
+    self.hotTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, ScreenHeight - kNavigationBarHeight) style:UITableViewStylePlain];
+    self.hotTableView.delegate = self;
+    self.hotTableView.dataSource = self;
+    [self.hotTableView registerNib:[UINib nibWithNibName:@"ReadDetailModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([ReadDetailModel class])];
     
+    [self.scrollView addSubview:self.hotTableView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    self.hotTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+    }];
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    self.hotTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadhotNewData)];
+    
+    // 马上进入刷新状态
+    [self.hotTableView.mj_header beginRefreshing];
+    
+    //上拉加载更多
+    self.hotTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadhotMoreData)];
+}
+
+//创建最新表视图
+- (void)createAddTimeTableView {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - kNavigationBarHeight) style:UITableViewStylePlain];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ReadDetailModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([ReadDetailModel class])];
     
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"最新", @"热门"]];
-    segment.frame = CGRectMake(0, 0, 100, 30);
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+    }];
     
-//    CGPoint newCenter = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, segment.center.y);
-//    
-//    segment.center = newCenter;
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadaddtimeNewData)];
     
-    segment.selectedSegmentIndex = 0;
+    // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
     
-    [segment addTarget:self action:@selector(change) forControlEvents:UIControlEventValueChanged];
-    
-//    [self.tableView addSubview:segment];
-    
-//    self.tableView.tableHeaderView = segment;
-    
-    self.navigationItem.titleView = segment;
-    
-    [self.view addSubview:self.tableView];
-    
-    
+    //上拉加载更多
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadaddtimeMoreData)];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self createScrollView];
+    
+    _requestSort = 0;//默认请求最新
+    
+    [self requestWithSort:@"addtime"];
+    
+    _requestSort = 1;
+    [self requestWithSort:@"hot"];
+    
+    [self createAddTimeTableView];
+    
+    self.segment = [[UISegmentedControl alloc] initWithItems:@[@"最新", @"热门"]];
+    self.segment.frame = CGRectMake(0, 0, 100, 30);
+    self.segment.selectedSegmentIndex = 0;
+    [self.segment addTarget:self action:@selector(change) forControlEvents:UIControlEventValueChanged];
+    
+    self.navigationItem.titleView = self.segment;
+    
+    [self.scrollView addSubview:self.tableView];
+    
+    [self createHotTableView];
+}
+
+//segment值改变时触发的方法
 - (void)change {
     
     NSLog(@"change");
     
+    _requestSort = !_requestSort;
+    
+    if (_requestSort == 0) {
+        NSLog(@"最新");
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self requestWithSort:@"addtime"];
+        
+    } else {
+        NSLog(@"最热");
+        
+        if (_hotListArray.count == 0) {
+            [self requestWithSort:@"hot"];
+            NSLog(@"hot %@",_hotListArray);
+        }
+
+        [self.scrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
+    }
     
     
     
 }
 
+
+#pragma mark -----数据加载-----
+
+- (void)loadaddtimeNewData {
+    [self requestWithSort:@"addtime"];
+}
+
+- (void)loadaddtimeMoreData {
+    [self requestRefreshDataWithSort:@"addtime"];
+}
+
+- (void)loadhotNewData {
+    [self requestWithSort:@"hot"];
+}
+
+- (void)loadhotMoreData {
+    [self requestRefreshDataWithSort:@"hot"];
+}
+
+/**
+ *  请求数据
+ */
 - (void)requestWithSort:(NSString *)sort {
     [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
-        
-        NSLog(@"data %@",data);
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
         NSArray *listArr = dataDic[@"data"][@"list"];
-        NSLog(@"%@",listArr);
+        
+        if ([sort isEqualToString:@"addtime"]) {
+            [self.addtimeListArray removeAllObjects];
+        } else {
+            [self.hotListArray removeAllObjects];
+        }
+        
         for (NSDictionary *dic in listArr) {
             ReadDetailModel *model = [[ReadDetailModel alloc] init];
             [model setValuesForKeysWithDictionary:dic];
-            if (0 ==  self.requestSort) {
+            if ([sort isEqualToString:@"addtime"]) {
                 [self.addtimeListArray addObject:model];
             } else {
                 [self.hotListArray addObject:model];
@@ -111,7 +213,48 @@
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_async(mainQueue, ^{
             
-            [self.tableView reloadData];
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+            } else {
+                [self.hotTableView reloadData];
+                [self.hotTableView.mj_header endRefreshing];
+            }
+            
+        });
+        
+    } requsetError:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+/**
+ *  上拉加载
+ */
+- (void)requestRefreshDataWithSort:(NSString *)sort {
+    [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start += 10), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+        NSArray *listArr = dataDic[@"data"][@"list"];
+        for (NSDictionary *dic in listArr) {
+            ReadDetailModel *model = [[ReadDetailModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.addtimeListArray addObject:model];
+            } else {
+                [self.hotListArray addObject:model];
+            }
+        }
+        //回到主线程
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_async(mainQueue, ^{
+            
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.tableView reloadData];
+                [self.tableView.mj_footer endRefreshing];
+            } else {
+                [self.hotTableView reloadData];
+                [self.hotTableView.mj_footer endRefreshing];
+            }
             
         });
         
@@ -121,6 +264,9 @@
         NSLog(@"%@",error);
     }];
 }
+
+
+#pragma mark -----tableView-----
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -139,19 +285,44 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    BaseModel *model = self.hotListArray[indexPath.row];
     
     BaseModel *model = nil;
     
     model = (_requestSort == 0) ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
     
+    
     BaseTableViewCell *cell = [FactoryTableViewCell createTableViewCell:model andTableView:tableView andIndexPath:indexPath];
+    
     
     ((ReadDetailModelCell *)cell).coverImageView.image = nil;
     
     [cell setDataWithModel:model];
     
     return cell;
+}
+
+
+#pragma mark -----scrollView-----
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.scrollView.contentOffset.x == 0) {
+        self.segment.selectedSegmentIndex = 0;
+        _requestSort = 0;
+    } else if (self.scrollView.contentOffset.x == ScreenWidth) {
+        self.segment.selectedSegmentIndex = 1;
+        _requestSort = 1;
+    }
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.scrollView.contentOffset.x > 0) {
+        if (_hotListArray.count == 0) {
+            [self requestWithSort:@"hot"];
+        }
+        
+    }
+    
 }
 
 

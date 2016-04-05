@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RadioViewController : UIViewController
+@interface RadioViewController : BaseViewController
 
 @end
