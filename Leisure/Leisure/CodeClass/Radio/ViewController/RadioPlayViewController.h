@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+
 @interface RadioPlayViewController : BaseViewController
+
+@property (nonatomic, strong) NSMutableArray *detailListArray;
+@property (nonatomic, assign) NSInteger selectPlayIndex;
 
 @end

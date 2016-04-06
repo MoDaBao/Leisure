@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="LG7-xq-RFr" customClass="PlayCoverView">
+            <rect key="frame" x="0.0" y="0.0" width="492" height="758"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mvU-ig-o9m">
+                    <rect key="frame" x="45" y="45" width="402" height="402"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="mvU-ig-o9m" secondAttribute="height" multiplier="1:1" id="fbC-Dp-Lp3"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWw-Jd-J1Z">
+                    <rect key="frame" x="224.5" y="509" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="JMV-lV-ugH">
+                    <rect key="frame" x="94" y="580" width="304" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="jK1-Pc-QRG"/>
+                        <constraint firstAttribute="width" constant="300" id="xaK-vw-xaa"/>
+                    </constraints>
+                </slider>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mug-yn-0Kx">
+                    <rect key="frame" x="45.5" y="580" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="MEa-vl-Ygk"/>
+                        <constraint firstAttribute="width" secondItem="mug-yn-0Kx" secondAttribute="height" multiplier="1:1" id="thE-Lr-6xv"/>
+                    </constraints>
+                    <state key="normal" image="iconfont-xiazai"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UG7-zO-BKJ">
+                    <rect key="frame" x="411" y="584" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="JMV-lV-ugH" firstAttribute="leading" secondItem="mug-yn-0Kx" secondAttribute="trailing" constant="20.5" id="67U-LX-Qv3"/>
+                <constraint firstItem="mvU-ig-o9m" firstAttribute="top" secondItem="LG7-xq-RFr" secondAttribute="top" constant="45" id="JH7-MC-KeI"/>
+                <constraint firstItem="UG7-zO-BKJ" firstAttribute="centerY" secondItem="JMV-lV-ugH" secondAttribute="centerY" id="Ns1-s9-FRW"/>
+                <constraint firstItem="JMV-lV-ugH" firstAttribute="centerX" secondItem="LG7-xq-RFr" secondAttribute="centerX" id="UAq-1l-YtV"/>
+                <constraint firstItem="UG7-zO-BKJ" firstAttribute="leading" secondItem="JMV-lV-ugH" secondAttribute="trailing" constant="15" id="Uni-vk-3SB"/>
+                <constraint firstItem="rWw-Jd-J1Z" firstAttribute="top" secondItem="mvU-ig-o9m" secondAttribute="bottom" constant="62" id="VtQ-Jj-Xmi"/>
+                <constraint firstItem="JMV-lV-ugH" firstAttribute="top" secondItem="rWw-Jd-J1Z" secondAttribute="bottom" constant="50" id="WxQ-1g-aXr"/>
+                <constraint firstItem="mug-yn-0Kx" firstAttribute="centerY" secondItem="JMV-lV-ugH" secondAttribute="centerY" id="XAa-vu-432"/>
+                <constraint firstItem="mvU-ig-o9m" firstAttribute="leading" secondItem="LG7-xq-RFr" secondAttribute="leading" constant="45" id="dRt-Qa-KOr"/>
+                <constraint firstAttribute="trailing" secondItem="mvU-ig-o9m" secondAttribute="trailing" constant="45" id="tJw-Ga-euR"/>
+                <constraint firstItem="rWw-Jd-J1Z" firstAttribute="centerX" secondItem="mvU-ig-o9m" secondAttribute="centerX" id="u1c-rf-uEC"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="coverImgView" destination="mvU-ig-o9m" id="qgf-L7-gUM"/>
+                <outlet property="downButton" destination="mug-yn-0Kx" id="8nW-M9-gMw"/>
+                <outlet property="playSlider" destination="JMV-lV-ugH" id="6ED-Wd-lkF"/>
+                <outlet property="timeLabel" destination="UG7-zO-BKJ" id="Axk-pi-te2"/>
+                <outlet property="titleLabel" destination="rWw-Jd-J1Z" id="hmL-mN-zFv"/>
+            </connections>
+            <point key="canvasLocation" x="688" y="-573"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iconfont-xiazai" width="35" height="35"/>
+    </resources>
+</document>

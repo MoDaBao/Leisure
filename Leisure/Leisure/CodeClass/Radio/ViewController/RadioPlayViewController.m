@@ -7,12 +7,46 @@
 //
 
 #import "RadioPlayViewController.h"
+#import "PlayerManager.h"
+#import "PlayCoverView.h"
+#import "PlayRadioView.h"
 
-@interface RadioPlayViewController ()
+@interface RadioPlayViewController ()<UIScrollViewDelegate>
+
+@property (nonatomic, strong) PlayCoverView *playCoverView;//封面
+@property (nonatomic, strong) PlayRadioView *playRadioView;//播放视图
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 
 @end
 
 @implementation RadioPlayViewController
+
+
+#pragma mark -----创建视图-----
+
+- (void)createScrollView {
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, ScreenHeight - kNavigationBarHeight)];
+    self.scrollView.contentSize = CGSizeMake(ScreenWidth * 3, 0);
+    self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
+    self.scrollView.delegate = self;
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.bounces = NO;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    
+    [self.view addSubview:self.scrollView];
+}
+
+- (void)createCoverView {
+    self.playCoverView = [[[NSBundle mainBundle] loadNibNamed:@"PlayCoverView" owner:nil options:nil] lastObject];
+    self.playRadioView.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, ScreenHeight - kNavigationBarHeight - 100);
+    
+}
+
+- (void)createRadioView {
+    self.playRadioView = [[[NSBundle mainBundle] loadNibNamed:@"PlayRadioView" owner:nil options:nil] lastObject];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

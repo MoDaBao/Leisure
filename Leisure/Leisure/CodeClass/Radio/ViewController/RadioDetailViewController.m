@@ -9,6 +9,7 @@
 #import "RadioDetailViewController.h"
 #import "RadioDetailModel.h"
 #import "RadioDetailModelCell.h"
+#import "RadioPlayViewController.h"
 
 @interface RadioDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -111,6 +112,20 @@
     [cell setDataWithModel:model];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+//    RadioDetailModel *model = self.detailDataArray[indexPath.row];
+    
+    RadioPlayViewController *radioPlayVC = [[RadioPlayViewController alloc] init];
+//    radioPlayVC.typeID = model.
+    radioPlayVC.selectPlayIndex = indexPath.row;
+    radioPlayVC.detailListArray = _detailDataArray;
+    radioPlayVC.view.backgroundColor = [UIColor orangeColor];
+    [self.navigationController pushViewController:radioPlayVC animated:YES];
+    
+    
 }
 
 
