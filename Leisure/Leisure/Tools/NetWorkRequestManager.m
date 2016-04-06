@@ -48,7 +48,7 @@
     }
     //将数组里的所有元素都用&连接
     NSString *string = [mArr componentsJoinedByString:@"&"];
-    NSLog(@"%@",string);
+//    NSLog(@"%@",string);
     return [string dataUsingEncoding:NSUTF8StringEncoding];
 }
 

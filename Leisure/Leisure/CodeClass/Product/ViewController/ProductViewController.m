@@ -26,6 +26,9 @@
 
 @implementation ProductViewController
 
+
+#pragma mark -----loadLazy-----
+
 - (NSMutableArray *)listArray {
     if (_listArray == nil) {
         self.listArray = [NSMutableArray array];
@@ -33,8 +36,13 @@
     return _listArray;
 }
 
-- (void)requstData {
-    [NetWorkRequestManager requestWithType:POST urlString:SHOPLIST_URL parDic:@{@"start":@(self.start), @"limit":@(self.limit)} requestFinish:^(NSData *data) {
+
+#pragma mark -----数据加载-----
+
+- (void)loadaddtimeNewData {
+    [NetWorkRequestManager requestWithType:POST urlString:SHOPLIST_URL parDic:@{@"start":@(self.start = 0), @"limit":@(self.limit)} requestFinish:^(NSData *data) {
+        
+        [self.listArray removeAllObjects];
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"dataDic = %@", dataDic);
         
@@ -55,6 +63,8 @@
 //            [self.navigationController pushViewController:infoVC animated:YES];
             
             [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
         });
         
     } requsetError:^(NSError *error) {
@@ -62,11 +72,37 @@
     }];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"良品";
+- (void)loadaddtimeMoreData {
+    [NetWorkRequestManager requestWithType:POST urlString:SHOPLIST_URL parDic:@{@"start":@(self.start += 10), @"limit":@(self.limit)} requestFinish:^(NSData *data) {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+        //        NSLog(@"dataDic = %@", dataDic);
+        
+        //获取列表数据源
+        NSArray *listArr = dataDic[@"data"][@"list"];
+        for (NSDictionary *dic in listArr) {
+            ProductListModel *model = [[ProductListModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.listArray addObject:model];
+        }
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
+        });
+        
+    } requsetError:^(NSError *error) {
+        
+    }];
+
+}
+
+
+#pragma mark -----创建视图-----
+
+- (void)createTableView {
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, ScreenHeight - kNavigationBarHeight) style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -74,12 +110,31 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ProductListModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([ProductListModel class])];
     
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+    }];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadaddtimeNewData)];
+    // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
+    //上拉加载更多
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadaddtimeMoreData)];
     
     [self.view addSubview:self.tableView];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    _start = 0;
+    _limit = 10;
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"良品";
     
-    [self requstData];
+    [self createTableView];
+    
+    [self loadaddtimeNewData];
 }
 
 

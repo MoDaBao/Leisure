@@ -130,8 +130,6 @@
 }
 
 
-
-
 - (void)scroll {
     
     [self.scrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];

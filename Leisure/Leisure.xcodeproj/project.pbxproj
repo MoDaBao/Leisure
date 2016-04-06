@@ -14,6 +14,8 @@
 		E70E27741CB37DB00092B426 /* TopicListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70E27731CB37DB00092B426 /* TopicListModelCell.xib */; };
 		E70E27771CB3AEBD0092B426 /* ProductListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E70E27761CB3AEBD0092B426 /* ProductListModelCell.m */; };
 		E70E27791CB3AED70092B426 /* ProductListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70E27781CB3AED70092B426 /* ProductListModelCell.xib */; };
+		E71C5A621CB4E16600801E82 /* NoPicTopicListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71C5A611CB4E16600801E82 /* NoPicTopicListModelCell.xib */; };
+		E71C5A651CB4E1DC00801E82 /* NoPicTopicListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E71C5A641CB4E1DC00801E82 /* NoPicTopicListModelCell.m */; };
 		E72C36BB1CAA6AFE00241C73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C36BA1CAA6AFE00241C73 /* main.m */; };
 		E72C36BE1CAA6AFE00241C73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C36BD1CAA6AFE00241C73 /* AppDelegate.m */; };
 		E72C36C11CAA6AFE00241C73 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C36C01CAA6AFE00241C73 /* ViewController.m */; };
@@ -110,6 +112,9 @@
 		E70E27751CB3AEBD0092B426 /* ProductListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListModelCell.h; sourceTree = "<group>"; };
 		E70E27761CB3AEBD0092B426 /* ProductListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListModelCell.m; sourceTree = "<group>"; };
 		E70E27781CB3AED70092B426 /* ProductListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductListModelCell.xib; sourceTree = "<group>"; };
+		E71C5A611CB4E16600801E82 /* NoPicTopicListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoPicTopicListModelCell.xib; sourceTree = "<group>"; };
+		E71C5A631CB4E1DC00801E82 /* NoPicTopicListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoPicTopicListModelCell.h; sourceTree = "<group>"; };
+		E71C5A641CB4E1DC00801E82 /* NoPicTopicListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoPicTopicListModelCell.m; sourceTree = "<group>"; };
 		E72C36B61CAA6AFE00241C73 /* Leisure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leisure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E72C36BA1CAA6AFE00241C73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E72C36BC1CAA6AFE00241C73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -572,6 +577,9 @@
 				E70E27701CB37D930092B426 /* TopicListModelCell.h */,
 				E70E27711CB37D930092B426 /* TopicListModelCell.m */,
 				E70E27731CB37DB00092B426 /* TopicListModelCell.xib */,
+				E71C5A631CB4E1DC00801E82 /* NoPicTopicListModelCell.h */,
+				E71C5A641CB4E1DC00801E82 /* NoPicTopicListModelCell.m */,
+				E71C5A611CB4E16600801E82 /* NoPicTopicListModelCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -730,6 +738,7 @@
 				E7E131901CAAA04300C8967F /* RadioViewController.xib in Resources */,
 				E7E1318B1CAAA01800C8967F /* ProductViewController.xib in Resources */,
 				E72C37061CAA6E4200241C73 /* BaseViewController.xib in Resources */,
+				E71C5A621CB4E16600801E82 /* NoPicTopicListModelCell.xib in Resources */,
 				E78E170A1CACB71E0022A252 /* BaseCollectionViewCell.xib in Resources */,
 				E7FEE6F11CABFAD20022A97B /* TopicInfoViewController.xib in Resources */,
 				E78E17241CAD14620022A252 /* RadioListModelCell.xib in Resources */,
@@ -855,6 +864,7 @@
 				E7E1318F1CAAA04300C8967F /* RadioViewController.m in Sources */,
 				E7FEE6D81CABC51C0022A97B /* RadioCarouselModel.m in Sources */,
 				E72C36BE1CAA6AFE00241C73 /* AppDelegate.m in Sources */,
+				E71C5A651CB4E1DC00801E82 /* NoPicTopicListModelCell.m in Sources */,
 				E78E17091CACB71E0022A252 /* BaseCollectionViewCell.m in Sources */,
 				E7E131941CAAA06900C8967F /* TopicViewController.m in Sources */,
 				E78E17151CACBBD60022A252 /* FactoryCollectionViewCell.m in Sources */,
@@ -1004,6 +1014,7 @@
 			baseConfigurationReference = 9E5D8398D5AB0089029D7A1F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = Leisure/Tools/PrefixHeader.pch;
 				INFOPLIST_FILE = Leisure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1019,6 +1030,7 @@
 			baseConfigurationReference = EECD7B2D2D9A2C24DF1BD66C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = Leisure/Tools/PrefixHeader.pch;
 				INFOPLIST_FILE = Leisure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
