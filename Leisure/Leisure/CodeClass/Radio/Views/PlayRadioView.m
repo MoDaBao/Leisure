@@ -33,17 +33,38 @@
 }
 
 - (IBAction)prevBtn:(id)sender {
+    //播放上一首
     [[PlayerManager shareInstances] prevMusic];
+    _selectRadioBlock([PlayerManager shareInstances].playIndex);//回调播放位置
     
-    _selectRadioBlock([PlayerManager shareInstances].playIndex);
+    UIButton *playBtn = (UIButton *)sender;
+    
+    [playBtn setImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
+    
 }
 
 - (IBAction)nextBtn:(id)sender {
+    //播放下一首
     [[PlayerManager shareInstances] nextMusic];
+    _selectRadioBlock([PlayerManager shareInstances].playIndex);//回调播放位置
+    
+    UIButton *playBtn = (UIButton *)sender;
+    
+    [playBtn setImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
 }
 
 - (IBAction)playAndPause:(id)sender {
-    [[PlayerManager shareInstances] pause];
+    PlayerManager *manager = [PlayerManager shareInstances];
+    UIButton *playBtn = (UIButton *)sender;
+    //如果是暂停状态就播放
+    if (manager.playState == playStatePause) {
+        [manager play];
+        [playBtn setImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
+    } else {
+        [manager pause];
+        [playBtn setImage:[UIImage imageNamed:@"player_play"] forState:UIControlStateNormal];
+        
+    }
 }
 
 

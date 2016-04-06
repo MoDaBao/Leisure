@@ -33,7 +33,7 @@
 //重写播放源的setter和getter方法
 - (NSMutableArray *)musicArray {
     if (!_musicArray) {
-        self.musicArray = [NSMutableArray array];
+        _musicArray = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return _musicArray;
 }

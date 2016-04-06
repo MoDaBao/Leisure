@@ -122,7 +122,7 @@
 //    radioPlayVC.typeID = model.
     radioPlayVC.selectPlayIndex = indexPath.row;
     radioPlayVC.detailListArray = _detailDataArray;
-    radioPlayVC.view.backgroundColor = [UIColor orangeColor];
+//    radioPlayVC.view.backgroundColor = [UIColor orangeColor];
     [self.navigationController pushViewController:radioPlayVC animated:YES];
     
     

@@ -8,12 +8,12 @@
 
 #import "RadioPlayViewController.h"
 #import "PlayerManager.h"
-//#import "PlayCoverView.h"
+#import "PlayCoverView.h"
 #import "PlayRadioView.h"
 
 @interface RadioPlayViewController ()<UIScrollViewDelegate>
 
-//@property (nonatomic, strong) PlayCoverView *playCoverView;//封面
+@property (nonatomic, strong) PlayCoverView *playCoverView;//封面
 @property (nonatomic, strong) PlayRadioView *playRadioView;//播放视图
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -22,6 +22,25 @@
 @end
 
 @implementation RadioPlayViewController
+
+
+#pragma mark -----创建播放器-----
+- (void)createPlayerManager {
+    //创建播放器管理对象
+    PlayerManager *manager = [PlayerManager shareInstances];
+    //传入播放位置
+    manager.playIndex = self.selectPlayIndex;
+    
+    //传入播放列表
+    NSMutableArray *listArray = [NSMutableArray array];
+    for (RadioDetailModel *model in self.detailListArray) {
+        [listArray addObject:model.musicUrl];
+    }
+    [manager setMusicArray:listArray];
+    [manager play];//播放
+    
+    
+}
 
 
 #pragma mark -----创建视图-----
@@ -40,8 +59,10 @@
 }
 
 - (void)createCoverView {
-//    self.playCoverView = [[[NSBundle mainBundle] loadNibNamed:@"PlayCoverView" owner:nil options:nil] lastObject];
-//    self.playRadioView.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, ScreenHeight - kNavigationBarHeight - 100);
+    self.playCoverView = [[[NSBundle mainBundle] loadNibNamed:@"PlayCoverView" owner:nil options:nil] lastObject];
+    self.playCoverView.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, ScreenHeight - kNavigationBarHeight - 100);
+    [self.playCoverView setRadioDetailModel:self.detailListArray[self.selectPlayIndex]];
+    [self.scrollView addSubview:self.playCoverView];
     
 }
 
@@ -57,8 +78,10 @@
     // Do any additional setup after loading the view from its nib.
     
     [self createScrollView];
-    [self createRadioView];
     
+    [self createCoverView];
+    [self createRadioView];
+    [self createPlayerManager];
 }
 
 - (void)didReceiveMemoryWarning {
