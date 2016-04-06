@@ -18,8 +18,6 @@
     // Drawing code
 }
 */
-
-
 - (void)setRadioDetailModel:(RadioDetailModel *)radioDetailModel {
     [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:radioDetailModel.coverimg]];
     self.titleLabel.text = radioDetailModel.title;
@@ -31,5 +29,6 @@
     PlayerManager *manager = [PlayerManager shareInstances];
     [manager seekToNewTime:self.playSlider.value];
 }
+
 
 @end

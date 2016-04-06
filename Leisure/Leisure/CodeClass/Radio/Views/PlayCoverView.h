@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RadioDetailModelCell.m"
+#import "RadioDetailModel.h"
 
 @interface PlayCoverView : UIView
-
 @property (weak, nonatomic) IBOutlet UIImageView *coverImgView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -18,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *downButton;
 
 @property (nonatomic, strong) RadioDetailModel *radioDetailModel;
+
 
 @end
