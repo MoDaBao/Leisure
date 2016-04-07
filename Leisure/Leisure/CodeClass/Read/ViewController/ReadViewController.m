@@ -9,7 +9,6 @@
 #import "ReadViewController.h"
 #import "ReadDetailViewController.h"
 #import "ReadCarouselModel.h"
-#import "WheelView.h"
 
 
 #define kWidth [[UIScreen mainScreen] bounds].size.width
@@ -35,14 +34,12 @@
 //标记当前位置
 @property (nonatomic, assign) NSInteger nowIndex;
 
-@property (nonatomic, strong) WheelView *testScrollView;
-
-
-
-
 @end
 
 @implementation ReadViewController
+
+
+#pragma mark -----loadLazy-----
 
 - (NSMutableArray *)ListDataArray {
     if (_ListDataArray == nil) {
@@ -59,13 +56,44 @@
     return _carouselArray;
 }
 
-
 - (NSMutableArray *)imageArray {
     if (!_imageArray) {
-        _imageArray = [NSMutableArray array];
+        self.imageArray = [NSMutableArray array];
     }
     return _imageArray;
 }
+
+
+#pragma mark-----创建视图-----
+
+//创建集合视图
+- (void)createCollectionView {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //设置行之间的最小间隔
+    layout.minimumLineSpacing = 10;
+    //设置列之间的最小间隔
+    layout.minimumInteritemSpacing = 2;
+    //设置item（cell）的大小
+    layout.itemSize = CGSizeMake((kWidth - 4 * 10) / 3, kWidth / 3 );
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    
+    //设置分区上下左右的边距
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, kWidth, kHeight - 164) collectionViewLayout:layout];
+    _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    
+    //注册cell
+    [_collectionView registerNib:[UINib nibWithNibName:@"ReadListModelCell" bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([ReadListModel class])];
+    
+    [self.view addSubview:_collectionView];
+    
+}
+
+
+#pragma mark -----viewDidLoad-----
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,6 +116,9 @@
     
     [self createCollectionView];
 }
+
+
+#pragma mark -----数据加载-----
 
 //请求数据
 - (void)requstData {
@@ -130,34 +161,14 @@
 }
 
 
+#pragma mark -----计时器方法-----
+
 - (void)scroll {
-    
     [self.scrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
-    
 }
 
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat offsetX = scrollView.contentOffset.x;
-    if (offsetX >= ScreenWidth * 2) {
-        _nowIndex =  [self getNextIndex:_nowIndex + 1];
-        [self createScrollSubviews];
-    } else if (offsetX <= 0) {
-        _nowIndex =  [self getNextIndex:_nowIndex - 1];
-        [self createScrollSubviews];
-    }
-}
-
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    //让计时器在未来开启 相当于暂停功能
-    [self.timer setFireDate:[NSDate distantFuture]];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
-}
-
+#pragma mark -----轮播图-----
 
 - (void)setScrollData {
     
@@ -181,7 +192,6 @@
     
     [self setScrollData];
     
-    
     for (int i = 0; i < self.imageArray.count; i ++) {
         
         ReadCarouselModel *model = self.imageArray[i];
@@ -189,13 +199,9 @@
         [imageView sd_setImageWithURL:[NSURL URLWithString:model.img]];
         [self.scrollView addSubview:imageView];
         
-        
     }
     
     self.scrollView.contentOffset = CGPointMake(ScreenWidth, 0);
-    
-    
-    
 }
 
 //获取数组中元素对应的位置
@@ -210,35 +216,7 @@
 }
 
 
-//创建集合视图
-- (void)createCollectionView { 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    //设置行之间的最小间隔
-    layout.minimumLineSpacing = 10;
-    //设置列之间的最小间隔
-    layout.minimumInteritemSpacing = 2;
-    //设置item（cell）的大小
-    layout.itemSize = CGSizeMake((kWidth - 4 * 10) / 3, kWidth / 3 );
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    
-    //设置分区上下左右的边距
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, kWidth, kHeight - 164) collectionViewLayout:layout];
-    _collectionView.backgroundColor = [UIColor clearColor];
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
-    
-    //注册cell
-    [_collectionView registerNib:[UINib nibWithNibName:@"ReadListModelCell" bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([ReadListModel class])];
-    
-    [self.view addSubview:_collectionView];
-    
-    
-    
-    
-}
-
+#pragma mark -----collectionViewDelegate-----
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -256,7 +234,6 @@
     
     [cell setDataWithModel:model];
     
-    
     return cell;
 }
 
@@ -270,6 +247,29 @@
     
     [self.navigationController pushViewController:readDetailVC animated:YES];
     
+}
+
+
+#pragma mark-----scrollViewDelegate-----
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetX = scrollView.contentOffset.x;
+    if (offsetX >= ScreenWidth * 2) {
+        _nowIndex =  [self getNextIndex:_nowIndex + 1];
+        [self createScrollSubviews];
+    } else if (offsetX <= 0) {
+        _nowIndex =  [self getNextIndex:_nowIndex - 1];
+        [self createScrollSubviews];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    //让计时器在未来开启 相当于暂停功能
+    [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
 }
 
 

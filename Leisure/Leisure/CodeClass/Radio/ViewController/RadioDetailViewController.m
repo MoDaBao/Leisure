@@ -10,6 +10,7 @@
 #import "RadioDetailModel.h"
 #import "RadioDetailModelCell.h"
 #import "RadioPlayViewController.h"
+#import "RadioDetailInfoView.h"
 
 @interface RadioDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -19,11 +20,16 @@
 
 @property (nonatomic, strong) UIWebView *webView;
 
+@property (nonatomic, strong) RadioDetailInfoView *headView;
+
 
 
 @end
 
 @implementation RadioDetailViewController
+
+
+#pragma mark -----loadLazy-----
 
 - (NSMutableArray *)detailDataArray {
     if (!_detailDataArray) {
@@ -32,17 +38,49 @@
     return _detailDataArray;
 }
 
+
+#pragma mark -----请求数据-----
+
 - (void)requestData {
     [NetWorkRequestManager requestWithType:POST urlString:RADIODETAILLIST_URL parDic:@{@"radioid":self.radioID} requestFinish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
         NSLog(@"radio detail %@",dataDic);
         
         NSArray *detailArr = dataDic[@"data"][@"list"];
+        // 获取电台信息
+        RadioInfoModel *radioInfo = [[RadioInfoModel alloc] init];
+        [radioInfo setValuesForKeysWithDictionary:dataDic[@"data"][@"radioInfo"]];
+        RadioUserInfoModel *userInfo = [[RadioUserInfoModel alloc] init];
+        [userInfo setValuesForKeysWithDictionary:dataDic[@"data"][@"radioInfo"][@"userinfo"]];
+        radioInfo.userInfo = userInfo;
         
-        for (NSDictionary *dic in detailArr) {
-            RadioDetailModel *model = [[RadioDetailModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [self.detailDataArray addObject:model];
+        for (NSDictionary *list in detailArr) {
+            RadioDetailModel *detailListModel = [[RadioDetailModel alloc] init];
+            [detailListModel setValuesForKeysWithDictionary:list];
+            
+            // 创建playinfo
+            RadioPlayInfoModel *playInfo = [[RadioPlayInfoModel alloc] init];
+            [playInfo setValuesForKeysWithDictionary:list[@"playInfo"]];
+            
+            // 创建authorinfo
+            RadioUserInfoModel *authorInfo = [[RadioUserInfoModel alloc] init];
+            [authorInfo setValuesForKeysWithDictionary:list[@"playInfo"][@"authorinfo"]];
+            playInfo.authorInfo = authorInfo;
+            
+            // 创建shareinfo
+            RadioShareInfoModel *shareInfo = [[RadioShareInfoModel alloc] init];
+            [shareInfo setValuesForKeysWithDictionary:list[@"playInfo"][@"shareinfo"]];
+            playInfo.shareInfo = shareInfo;
+            
+            // 创建userinfo
+            RadioUserInfoModel *userInfo = [[RadioUserInfoModel alloc] init];
+            [userInfo setValuesForKeysWithDictionary:list[@"playInfo"][@"userinfo"]];
+            playInfo.userInfo = userInfo;
+            
+            detailListModel.playInfo = playInfo;
+            
+            
+            [self.detailDataArray addObject:detailListModel];
         }
         
         
@@ -50,7 +88,7 @@
         //回到主线程刷新UI
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"%@",self.detailDataArray);
-            
+            [self.headView setDataWithModel:radioInfo];
             [self.tableView reloadData];
             
         });
@@ -63,32 +101,36 @@
     }];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    [self requestData];
-    
-    
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164)];
-    
-    
-    [self.view addSubview:self.webView];
-    
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, ScreenWidth, ScreenHeight - 164 - kNavigationBarHeight) style:UITableViewStylePlain];
+
+#pragma mark -----创建视图-----
+
+- (void)createTableView {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, ScreenHeight - kNavigationBarHeight) style:UITableViewStylePlain];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"RadioDetailModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([RadioDetailModel class])];
     
+    self.headView = [[[NSBundle mainBundle] loadNibNamed:@"RadioDetailInfoView" owner:nil options:nil] lastObject];
+    self.headView.frame = CGRectMake(0, 0, ScreenWidth, 235);
+    self.tableView.tableHeaderView = self.headView;
+    
     [self.view addSubview:self.tableView];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     
+    [self requestData];
     
-    
+    [self createTableView];
     
 }
+
+
+#pragma mark -----tableViewDelegate-----
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

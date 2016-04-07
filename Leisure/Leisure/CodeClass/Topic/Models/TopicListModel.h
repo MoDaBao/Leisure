@@ -20,8 +20,14 @@
 @property (nonatomic, copy) NSString *content;
 //话题的id
 @property (nonatomic, copy) NSString *contentid;
+//是否热门
+@property (nonatomic, assign) BOOL ishot;
+// 是否推荐
+@property (nonatomic, assign) BOOL isrecommend;
 //图片地址
 @property (nonatomic, copy) NSString *coverimg;
+// 歌曲id
+@property (nonatomic, copy) NSString *songid;
 //标题
 @property (nonatomic, copy) NSString *title;
 //计数对象

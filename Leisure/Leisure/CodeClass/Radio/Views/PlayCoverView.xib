@@ -24,7 +24,7 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6xM-3F-8xr">
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5.5" translatesAutoresizingMaskIntoConstraints="NO" id="6xM-3F-8xr">
                     <rect key="frame" x="144" y="580" width="204" height="31"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="Yur-KX-UQq"/>

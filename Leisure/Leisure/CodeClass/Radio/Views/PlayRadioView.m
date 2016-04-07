@@ -29,7 +29,7 @@
     }
     //  然后根据scrollview的位置修改成显示状态
     UIView *markView = [self viewWithTag:2000 + index];
-    markView.backgroundColor = [UIColor greenColor];
+    markView.backgroundColor = [UIColor orangeColor];
 }
 
 - (IBAction)prevBtn:(id)sender {
@@ -37,9 +37,9 @@
     [[PlayerManager shareInstances] prevMusic];
     _selectRadioBlock([PlayerManager shareInstances].playIndex);//回调播放位置
     
-    UIButton *playBtn = (UIButton *)sender;
+    UIButton *playBtn = (UIButton *)[self viewWithTag:3002]  ;
     
-    [playBtn setImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
+    [playBtn setBackgroundImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
     
 }
 
@@ -48,24 +48,27 @@
     [[PlayerManager shareInstances] nextMusic];
     _selectRadioBlock([PlayerManager shareInstances].playIndex);//回调播放位置
     
-    UIButton *playBtn = (UIButton *)sender;
+    UIButton *playBtn = (UIButton *)[self viewWithTag:3002];
     
-    [playBtn setImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
+    [playBtn setBackgroundImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
 }
 
 - (IBAction)playAndPause:(id)sender {
     PlayerManager *manager = [PlayerManager shareInstances];
-    UIButton *playBtn = (UIButton *)sender;
+    UIButton *playBtn = (UIButton *)[self viewWithTag:3002];
     //如果是暂停状态就播放
     if (manager.playState == playStatePause) {
         [manager play];
-        [playBtn setImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
+        [playBtn setBackgroundImage:[UIImage imageNamed:@"player_pause"] forState:UIControlStateNormal];
     } else {
         [manager pause];
-        [playBtn setImage:[UIImage imageNamed:@"player_play"] forState:UIControlStateNormal];
+        [playBtn setBackgroundImage:[UIImage imageNamed:@"player_play"] forState:UIControlStateNormal];
         
     }
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+}
 
 @end

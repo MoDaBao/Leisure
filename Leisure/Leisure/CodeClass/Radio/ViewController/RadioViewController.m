@@ -157,26 +157,18 @@
     
     [self.scrollView setTotalPagesCount:self.carouselArray.count];
     
+//    self.tableView.tableHeaderView = self.scrollView;
     [self.view addSubview:self.scrollView];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    self.limit = 10;
- 
-    self.navigationItem.title = @"电台";
-    
-    [self loadNewData];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164 + kNavigationBarHeight, ScreenWidth, ScreenHeight - 164) style:UITableViewStylePlain];
+//创建表视图
+- (void)createTableView {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight + 164, ScreenWidth, ScreenHeight - kNavigationBarHeight - 164) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"RadioListModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([RadioListModel class])];
-    
+    self.tableView.tableHeaderView = self.scrollView;
     [self.view addSubview:self.tableView];
     
     
@@ -192,6 +184,21 @@
     
     //上拉加载更多
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.limit = 10;
+ 
+    self.navigationItem.title = @"电台";
+    
+    [self loadNewData];
+    
+    [self createTableView];
+//    [self createScrollView];
     
 }
 

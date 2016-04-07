@@ -65,6 +65,7 @@
     self.scrollView.pagingEnabled = YES;
     self.scrollView.delegate = self;
     self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.bounces = NO;
     
     [self.view addSubview:self.scrollView];
 }
@@ -110,6 +111,9 @@
     [self.scrollView addSubview:self.tableView];
 }
 
+
+#pragma mark -----viewDidLoad-----
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -120,7 +124,7 @@
     self.segment = [[UISegmentedControl alloc] initWithItems:@[@"最新", @"热门"]];
     self.segment.frame = CGRectMake(0, 0, 100, 30);
     self.segment.selectedSegmentIndex = 0;
-    [self.segment addTarget:self action:@selector(change) forControlEvents:UIControlEventValueChanged];
+    [self.segment addTarget:self action:@selector(change:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = self.segment;
     
     [self createScrollView];
@@ -133,44 +137,24 @@
 }
 
 //segment值改变时触发的方法
-- (void)change {
+- (void)change:(UISegmentedControl *)segment {
+    //计算偏移量
+    CGPoint offset = CGPointMake(segment.selectedSegmentIndex * ScreenWidth, 0);
+    [self.scrollView setContentOffset:offset animated:YES];
     
-    NSLog(@"change");
-    
-    _requestSort = !_requestSort;
-    
-//    if (_requestSort == 0) {
-//        NSLog(@"最新");
-//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//        [self requestWithSort:@"addtime"];
-//        
-//    } else {
-//        NSLog(@"最热");
-//        
-//        if (_hotListArray.count == 0) {
-//            [self requestWithSort:@"hot"];
-//            NSLog(@"hot %@",_hotListArray);
-//        }
-//
-//        [self.scrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
-//    }
-    
-    if (self.segment.selectedSegmentIndex == 0) {
-        NSLog(@"最新");
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-        [self requestWithSort:@"addtime"];
-        
-    } else {
-        NSLog(@"最热");
-        
-        if (_hotListArray.count == 0) {
-            [self requestWithSort:@"hot"];
-            NSLog(@"hot %@",_hotListArray);
+    if (segment.selectedSegmentIndex) {
+        _requestSort = 1;
+        if (self.hotListArray.count) {
+            return;
         }
-        
-        [self.scrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
+        [self requestWithSort:@"hot"];
+    } else {
+        _requestSort = 0;
+        if (self.addtimeListArray.count) {
+            return;
+        }
+        [self requestWithSort:@"addtime"];
     }
-    
     
 }
 
@@ -200,7 +184,7 @@
     [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start = 0), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
         NSArray *listArr = dataDic[@"data"][@"list"];
-        NSLog(@"datadic %@",dataDic);
+//        NSLog(@"datadic %@",dataDic);
         self.sort = sort;
         
         if ([sort isEqualToString:@"addtime"]) {
@@ -286,13 +270,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //根据标识来确定数据源
-//    return _requestSort == 0 ? self.addtimeListArray.count : self.hotListArray.count;
+    return _requestSort == 0 ? self.addtimeListArray.count : self.hotListArray.count;
     
-    if ([self.sort isEqualToString:@"addtime"]) {
-        return self.addtimeListArray.count;
-    } else {
-        return self.hotListArray.count;
-    }
+//    if ([self.sort isEqualToString:@"addtime"]) {
+//        return self.addtimeListArray.count;
+//    } else {
+//        return self.hotListArray.count;
+//    }
     
 //    return 10;
 }
@@ -305,7 +289,7 @@
     
     BaseModel *model = nil;
     
-//    model = (_requestSort == 0) ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
+    model = (_requestSort == 0) ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
     if ([self.sort isEqualToString:@"addtime"]) {
         model = self.addtimeListArray[indexPath.row];
     } else {
@@ -330,21 +314,27 @@
     if (self.scrollView.contentOffset.x == 0) {
         self.segment.selectedSegmentIndex = 0;
         _requestSort = 0;
+        if (!self.addtimeListArray.count) {
+            return;
+        }
+        [self requestWithSort:@"addtime"];
     } else if (self.scrollView.contentOffset.x == ScreenWidth) {
         self.segment.selectedSegmentIndex = 1;
         _requestSort = 1;
+        if (!self.hotListArray.count) {
+            return;
+        }
+        [self requestWithSort:@"hot"];
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.scrollView.contentOffset.x > 0) {
-        if (_hotListArray.count == 0) {
-            [self requestWithSort:@"hot"];
-        }
-        
-    }
-    
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    if (self.scrollView.contentOffset.x > 0) {
+//        if (_hotListArray.count == 0) {
+//            [self requestWithSort:@"hot"];
+//        }
+//    }
+//}
 
 
 
