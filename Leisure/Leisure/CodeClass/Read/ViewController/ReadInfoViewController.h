@@ -10,4 +10,6 @@
 
 @interface ReadInfoViewController : BaseViewController
 
+@property (nonatomic, copy) NSString *contentid;
+
 @end

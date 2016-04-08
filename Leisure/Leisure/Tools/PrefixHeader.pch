@@ -28,4 +28,7 @@
 #import <UIImageView+WebCache.h>
 #import <MJRefresh/MJRefresh.h>
 
+#import "PlayerManager.h"
+#import "UserInfoManager.h"
+
 #endif /* PrefixHeader_pch */

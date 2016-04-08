@@ -9,6 +9,7 @@
 #import "ReadDetailViewController.h"
 #import "ReadDetailModel.h"
 #import "ReadDetailModelCell.h"
+#import "ReadInfoViewController.h"
 
 @interface ReadDetailViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate>
 
@@ -133,7 +134,6 @@
     
     [self requestWithSort:@"addtime"];
     
-    
 }
 
 //segment值改变时触发的方法
@@ -213,7 +213,6 @@
                 [self.hotTableView reloadData];
                 [self.hotTableView.mj_header endRefreshing];
             }
-            
         });
         
     } requsetError:^(NSError *error) {
@@ -296,15 +295,20 @@
         model = self.hotListArray[indexPath.row];
     }
     
-    
     BaseTableViewCell *cell = [FactoryTableViewCell createTableViewCell:model andTableView:tableView andIndexPath:indexPath];
-    
     
     ((ReadDetailModelCell *)cell).coverImageView.image = nil;
     
     [cell setDataWithModel:model];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ReadDetailModel *model = (_requestSort == 0) ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
+    ReadInfoViewController *readInfoVC = [[ReadInfoViewController alloc] init];
+    readInfoVC.contentid = model.contentID;
+    [self.navigationController pushViewController:readInfoVC animated:YES];
 }
 
 

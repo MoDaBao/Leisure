@@ -33,7 +33,14 @@
 #define TOPICLIST_URL          @"http://api2.pianke.me/group/posts_hotlist"  // 话题列表
 #define TOPICINFO_URL          @"http://api2.pianke.me/group/posts_info"  // 话题详情
 
+//  登录注册
+#define LOGIN_URL            @"http://api2.pianke.me/user/login" //登录接口的地址
+#define REGIST_URL           @"http://api2.pianke.me/user/reg"   //注册接口的地址
 
+//  评论
+#define GETCOMMENT_url         @"http://api2.pianke.me/comment/get" // 获取评论
+#define ADDCOMMENT_url         @"http://api2.pianke.me/comment/add" // 发表评论
+#define DELCOMMENT_url         @"http://api2.pianke.me/comment/del" // 删除评论
 
 
 #endif /* URLHeaderDefine_h */

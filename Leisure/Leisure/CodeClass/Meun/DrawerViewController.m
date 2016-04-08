@@ -77,6 +77,7 @@
 }
 
 
+#pragma mark -----viewDidLoad-----
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -13,14 +13,47 @@
 #import "RadioViewController.h"
 #import "TopicViewController.h"
 #import "ProductViewController.h"
+#import "LoginViewController.h"
 
 @interface MenuViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *list;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @end
 
 @implementation MenuViewController
+
+
+#pragma mark -----loginButton方法-----
+
+- (IBAction)login:(id)sender {
+    
+    if (![[UserInfoManager getUserAuth] isEqualToString:@" "]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"取消登录" message:@"确定取消登录？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [UserInfoManager cancelUserAuth];
+            [UserInfoManager cancelUserID];
+            [self.loginButton setTitle:@"登录/注册" forState:UIControlStateNormal];
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertController addAction:sureAction];
+        [alertController addAction:cancelAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"LoginAndRegist" bundle:nil];
+        LoginViewController *loginVC = [storyBoard instantiateInitialViewController];
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }
+    
+}
+
+
+#pragma mark -----viewDidLoad-----
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,10 +67,23 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (![[UserInfoManager getUserIcon] isEqualToString:@" "]) {
+        [_loginButton setTitle:[UserInfoManager getUserName] forState:UIControlStateNormal];
+//        self.iconImageView.image = [UIImage imageNamed:[UserInfoManager getUserIcon]];
+    } else {
+        [_loginButton setTitle:@"登录/注册" forState:UIControlStateNormal];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark -----tableViewDelegate-----
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -57,8 +103,9 @@
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        
     }
-    
+//    cell.backgroundView.backgroundColor = [UIColor colorWithRed:0.67 green:0.67 blue:0.67 alpha:1.00];
     cell.textLabel.text = _list[indexPath.row];
     
     return cell;

@@ -10,10 +10,28 @@
 
 @interface ReadInfoViewController ()
 
+@property (nonatomic, strong) UITableView *tableView;
+
 @end
 
 @implementation ReadInfoViewController
 
+
+#pragma mark -----请求数据-----
+
+- (void)requsetData {
+    [NetWorkRequestManager requestWithType:POST urlString:READCONTENT_URL parDic:@{@"contentid" : _contentid} requestFinish:^(NSData *data) {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+    } requsetError:^(NSError *error) {
+        NSLog(@"error is %@",error);
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
