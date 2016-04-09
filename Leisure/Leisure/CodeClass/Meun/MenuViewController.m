@@ -69,7 +69,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (![[UserInfoManager getUserIcon] isEqualToString:@" "]) {
+    if (![[UserInfoManager getUserID] isEqualToString:@" "]) {//之前会崩溃的原因是UserID是NSNumber，但是却用NSString类型接收
         [_loginButton setTitle:[UserInfoManager getUserName] forState:UIControlStateNormal];
 //        self.iconImageView.image = [UIImage imageNamed:[UserInfoManager getUserIcon]];
     } else {

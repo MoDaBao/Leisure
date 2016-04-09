@@ -26,7 +26,7 @@
 + (NSString *)getUserName;
 
 //保存用户的id
-+ (void)saveUserID:(NSString *)userID;
++ (void)saveUserID:(NSNumber *)userID;
 //获取用户的id
 + (NSString *)getUserID;
 //  取消用户的id

@@ -54,8 +54,8 @@
 }
 
 //保存用户的id
-+ (void)saveUserID:(NSString *)userID {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", userID] forKey:@"UserID"];
++ (void)saveUserID:(NSNumber *)userID {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", userID.stringValue] forKey:@"UserID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 //获取用户的id

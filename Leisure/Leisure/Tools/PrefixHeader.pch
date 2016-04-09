@@ -31,4 +31,6 @@
 #import "PlayerManager.h"
 #import "UserInfoManager.h"
 
+#import "NSString+Html.h"
+
 #endif /* PrefixHeader_pch */

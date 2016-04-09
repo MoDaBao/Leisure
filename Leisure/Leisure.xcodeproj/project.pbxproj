@@ -63,6 +63,18 @@
 		E7A6E9681CB64E6F00B57EC3 /* RadioDetailInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A6E9671CB64E6F00B57EC3 /* RadioDetailInfoView.m */; };
 		E7A6E96A1CB64E7E00B57EC3 /* RadioDetailInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A6E9691CB64E7E00B57EC3 /* RadioDetailInfoView.xib */; };
 		E7A6E96D1CB6542700B57EC3 /* RadioInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A6E96C1CB6542700B57EC3 /* RadioInfoModel.m */; };
+		E7A7F2931CB89E7400620FCB /* ReadInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2921CB89E7400620FCB /* ReadInfoModel.m */; };
+		E7A7F2961CB8A19E00620FCB /* ReadShareInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2951CB8A19E00620FCB /* ReadShareInfoModel.m */; };
+		E7A7F2991CB8A1C100620FCB /* ReadInfoCounterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2981CB8A1C100620FCB /* ReadInfoCounterModel.m */; };
+		E7A7F29C1CB8A5D000620FCB /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F29B1CB8A5D000620FCB /* CommentModel.m */; };
+		E7A7F29F1CB8A5E800620FCB /* CommentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F29E1CB8A5E800620FCB /* CommentUserModel.m */; };
+		E7A7F2A51CB8A84100620FCB /* NSString+Html.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2A31CB8A84100620FCB /* NSString+Html.m */; };
+		E7A7F2A61CB8A84100620FCB /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = E7A7F2A41CB8A84100620FCB /* style.css */; };
+		E7A7F2AA1CB8B28100620FCB /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2A81CB8B28100620FCB /* CommentViewController.m */; };
+		E7A7F2AB1CB8B28100620FCB /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A7F2A91CB8B28100620FCB /* CommentViewController.xib */; };
+		E7A7F2AE1CB8D62A00620FCB /* KeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2AD1CB8D62A00620FCB /* KeyBoardView.m */; };
+		E7A7F2B11CB8FF4D00620FCB /* CommentModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2B01CB8FF4D00620FCB /* CommentModelCell.m */; };
+		E7A7F2B31CB8FF5C00620FCB /* CommentModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A7F2B21CB8FF5C00620FCB /* CommentModelCell.xib */; };
 		E7E1318A1CAAA01800C8967F /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E131881CAAA01800C8967F /* ProductViewController.m */; };
 		E7E1318B1CAAA01800C8967F /* ProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7E131891CAAA01800C8967F /* ProductViewController.xib */; };
 		E7E1318F1CAAA04300C8967F /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E1318D1CAAA04300C8967F /* RadioViewController.m */; };
@@ -210,6 +222,27 @@
 		E7A6E9691CB64E7E00B57EC3 /* RadioDetailInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioDetailInfoView.xib; sourceTree = "<group>"; };
 		E7A6E96B1CB6542700B57EC3 /* RadioInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioInfoModel.h; sourceTree = "<group>"; };
 		E7A6E96C1CB6542700B57EC3 /* RadioInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioInfoModel.m; sourceTree = "<group>"; };
+		E7A7F2911CB89E7400620FCB /* ReadInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadInfoModel.h; sourceTree = "<group>"; };
+		E7A7F2921CB89E7400620FCB /* ReadInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadInfoModel.m; sourceTree = "<group>"; };
+		E7A7F2941CB8A19E00620FCB /* ReadShareInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadShareInfoModel.h; sourceTree = "<group>"; };
+		E7A7F2951CB8A19E00620FCB /* ReadShareInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadShareInfoModel.m; sourceTree = "<group>"; };
+		E7A7F2971CB8A1C100620FCB /* ReadInfoCounterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadInfoCounterModel.h; sourceTree = "<group>"; };
+		E7A7F2981CB8A1C100620FCB /* ReadInfoCounterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadInfoCounterModel.m; sourceTree = "<group>"; };
+		E7A7F29A1CB8A5D000620FCB /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		E7A7F29B1CB8A5D000620FCB /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		E7A7F29D1CB8A5E800620FCB /* CommentUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentUserModel.h; sourceTree = "<group>"; };
+		E7A7F29E1CB8A5E800620FCB /* CommentUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserModel.m; sourceTree = "<group>"; };
+		E7A7F2A21CB8A84100620FCB /* NSString+Html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Html.h"; sourceTree = "<group>"; };
+		E7A7F2A31CB8A84100620FCB /* NSString+Html.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Html.m"; sourceTree = "<group>"; };
+		E7A7F2A41CB8A84100620FCB /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		E7A7F2A71CB8B28100620FCB /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		E7A7F2A81CB8B28100620FCB /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
+		E7A7F2A91CB8B28100620FCB /* CommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewController.xib; sourceTree = "<group>"; };
+		E7A7F2AC1CB8D62A00620FCB /* KeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyBoardView.h; sourceTree = "<group>"; };
+		E7A7F2AD1CB8D62A00620FCB /* KeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyBoardView.m; sourceTree = "<group>"; };
+		E7A7F2AF1CB8FF4D00620FCB /* CommentModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModelCell.h; sourceTree = "<group>"; };
+		E7A7F2B01CB8FF4D00620FCB /* CommentModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModelCell.m; sourceTree = "<group>"; };
+		E7A7F2B21CB8FF5C00620FCB /* CommentModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentModelCell.xib; sourceTree = "<group>"; };
 		E7E131871CAAA01800C8967F /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
 		E7E131881CAAA01800C8967F /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		E7E131891CAAA01800C8967F /* ProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductViewController.xib; sourceTree = "<group>"; };
@@ -559,6 +592,16 @@
 				E7FEE6B61CAB6FE90022A97B /* ReadCarouselModel.m */,
 				E7FEE6B21CAB6FD70022A97B /* ReadDetailModel.h */,
 				E7FEE6B31CAB6FD70022A97B /* ReadDetailModel.m */,
+				E7A7F2941CB8A19E00620FCB /* ReadShareInfoModel.h */,
+				E7A7F2951CB8A19E00620FCB /* ReadShareInfoModel.m */,
+				E7A7F2971CB8A1C100620FCB /* ReadInfoCounterModel.h */,
+				E7A7F2981CB8A1C100620FCB /* ReadInfoCounterModel.m */,
+				E7A7F2911CB89E7400620FCB /* ReadInfoModel.h */,
+				E7A7F2921CB89E7400620FCB /* ReadInfoModel.m */,
+				E7A7F29A1CB8A5D000620FCB /* CommentModel.h */,
+				E7A7F29B1CB8A5D000620FCB /* CommentModel.m */,
+				E7A7F29D1CB8A5E800620FCB /* CommentUserModel.h */,
+				E7A7F29E1CB8A5E800620FCB /* CommentUserModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -575,6 +618,9 @@
 				E7FEE6E31CABEE9D0022A97B /* ReadInfoViewController.h */,
 				E7FEE6E41CABEE9D0022A97B /* ReadInfoViewController.m */,
 				E7FEE6E51CABEE9D0022A97B /* ReadInfoViewController.xib */,
+				E7A7F2A71CB8B28100620FCB /* CommentViewController.h */,
+				E7A7F2A81CB8B28100620FCB /* CommentViewController.m */,
+				E7A7F2A91CB8B28100620FCB /* CommentViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -588,6 +634,11 @@
 				E78E171B1CACD1640022A252 /* ReadDetailModelCell.h */,
 				E78E171C1CACD1640022A252 /* ReadDetailModelCell.m */,
 				E78E171E1CACD1AD0022A252 /* ReadDetailModelCell.xib */,
+				E7A7F2AC1CB8D62A00620FCB /* KeyBoardView.h */,
+				E7A7F2AD1CB8D62A00620FCB /* KeyBoardView.m */,
+				E7A7F2AF1CB8FF4D00620FCB /* CommentModelCell.h */,
+				E7A7F2B01CB8FF4D00620FCB /* CommentModelCell.m */,
+				E7A7F2B21CB8FF5C00620FCB /* CommentModelCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -660,6 +711,7 @@
 		E72C37011CAA6C1600241C73 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E7A7F2A11CB8A83200620FCB /* HTML */,
 				E7E131961CAAB13A00C8967F /* NetWorkRequestManager.h */,
 				E7E131971CAAB13A00C8967F /* NetWorkRequestManager.m */,
 				E7E131991CAABCB500C8967F /* URLHeaderDefine.h */,
@@ -685,6 +737,16 @@
 				E7A61B731CB7CB460007D9A9 /* LoginAndRegist.storyboard */,
 			);
 			path = LoginAndRegist;
+			sourceTree = "<group>";
+		};
+		E7A7F2A11CB8A83200620FCB /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				E7A7F2A21CB8A84100620FCB /* NSString+Html.h */,
+				E7A7F2A31CB8A84100620FCB /* NSString+Html.m */,
+				E7A7F2A41CB8A84100620FCB /* style.css */,
+			);
+			path = HTML;
 			sourceTree = "<group>";
 		};
 		EE357508FEE64B3044EF1DA4 /* Frameworks */ = {
@@ -827,10 +889,13 @@
 				E70E27791CB3AED70092B426 /* ProductListModelCell.xib in Resources */,
 				E72C370B1CAA6E5D00241C73 /* ReadViewController.xib in Resources */,
 				E78E170F1CACB7DA0022A252 /* BaseTableViewCell.xib in Resources */,
+				E7A7F2B31CB8FF5C00620FCB /* CommentModelCell.xib in Resources */,
 				E72C36C41CAA6AFE00241C73 /* Main.storyboard in Resources */,
 				E71C5AA91CB5603200801E82 /* PlayCoverView.xib in Resources */,
 				E7FAFC2E1CAB6D2900DBAD25 /* ReadDetailViewController.xib in Resources */,
+				E7A7F2A61CB8A84100620FCB /* style.css in Resources */,
 				E7E131951CAAA06900C8967F /* TopicViewController.xib in Resources */,
+				E7A7F2AB1CB8B28100620FCB /* CommentViewController.xib in Resources */,
 				E7FEE6E71CABEE9D0022A97B /* ReadInfoViewController.xib in Resources */,
 				E79CA8D61CAD4EF600EE5198 /* RadioDetailModelCell.xib in Resources */,
 				E72C37181CAA7BBE00241C73 /* nav_menu_icon@2x.png in Resources */,
@@ -922,15 +987,22 @@
 				E7A6E9681CB64E6F00B57EC3 /* RadioDetailInfoView.m in Sources */,
 				E70E27721CB37D930092B426 /* TopicListModelCell.m in Sources */,
 				E7FEE6F01CABFAD20022A97B /* TopicInfoViewController.m in Sources */,
+				E7A7F29F1CB8A5E800620FCB /* CommentUserModel.m in Sources */,
 				E72C37051CAA6E4200241C73 /* BaseViewController.m in Sources */,
 				E7FEE6BE1CAB81E70022A97B /* ProductInfoViewController.m in Sources */,
 				E78E17281CAD4A0E0022A252 /* RadioDetailModel.m in Sources */,
+				E7A7F2931CB89E7400620FCB /* ReadInfoModel.m in Sources */,
 				E7A6E9651CB63C5700B57EC3 /* RadioShareInfoModel.m in Sources */,
 				E7FEE6E61CABEE9D0022A97B /* ReadInfoViewController.m in Sources */,
 				E7A6E96D1CB6542700B57EC3 /* RadioInfoModel.m in Sources */,
 				E78E170E1CACB7DA0022A252 /* BaseTableViewCell.m in Sources */,
+				E7A7F2A51CB8A84100620FCB /* NSString+Html.m in Sources */,
 				E7FEE6EB1CABEEF40022A97B /* RadioPlayViewController.m in Sources */,
+				E7A7F29C1CB8A5D000620FCB /* CommentModel.m in Sources */,
+				E7A7F2AE1CB8D62A00620FCB /* KeyBoardView.m in Sources */,
 				E72C37111CAA6ED100241C73 /* DrawerViewController.m in Sources */,
+				E7A7F2991CB8A1C100620FCB /* ReadInfoCounterModel.m in Sources */,
+				E7A7F2AA1CB8B28100620FCB /* CommentViewController.m in Sources */,
 				E7FEE6C81CABAF090022A97B /* TopicListModel.m in Sources */,
 				E7E131981CAAB13A00C8967F /* NetWorkRequestManager.m in Sources */,
 				E71C5A681CB509D200801E82 /* PlayerManager.m in Sources */,
@@ -941,12 +1013,14 @@
 				E7A61B6F1CB7CAFC0007D9A9 /* LoginViewController.m in Sources */,
 				E7A6E95D1CB6318D00B57EC3 /* RadioPlayInfoModelCell.m in Sources */,
 				E78E17221CAD14550022A252 /* RadioListModelCell.m in Sources */,
+				E7A7F2961CB8A19E00620FCB /* ReadShareInfoModel.m in Sources */,
 				E7A6E95A1CB6317100B57EC3 /* RadioPlayInfoModel.m in Sources */,
 				E71C5A9E1CB55E8F00801E82 /* PlayRadioView.m in Sources */,
 				E72C37151CAA6EEE00241C73 /* MenuViewController.m in Sources */,
 				E7FEE6CE1CABB1A80022A97B /* TopicUserInfoModel.m in Sources */,
 				E7A61B721CB7CB0A0007D9A9 /* RegistViewController.m in Sources */,
 				E79CA8D41CAD4EE800EE5198 /* RadioDetailModelCell.m in Sources */,
+				E7A7F2B11CB8FF4D00620FCB /* CommentModelCell.m in Sources */,
 				E7FEE6B71CAB6FE90022A97B /* ReadCarouselModel.m in Sources */,
 				E7E1318F1CAAA04300C8967F /* RadioViewController.m in Sources */,
 				E7FEE6D81CABC51C0022A97B /* RadioCarouselModel.m in Sources */,

@@ -20,8 +20,17 @@
 */
 
 - (void)setDataWithModel:(TopicListModel *)model {
-    
-    self.titleLabel.text = model.title;
+    if (model.ishot) {
+        NSString *s = [NSString stringWithFormat:@"精 %@", model.title];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:s];
+        
+        [str addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(0, 1)];
+        [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:25] range:NSMakeRange(0, 1)];
+        
+        _titleLabel.attributedText = str;
+    } else {
+        _titleLabel.text = model.title;
+    }
     [self.commentCountBtn setTitle:[NSString stringWithFormat:@"  %@",model.counter.comment.stringValue] forState:UIControlStateNormal];
     self.contentLabel.text = model.content;
     self.timeLabel.text = model.addtime_f;
