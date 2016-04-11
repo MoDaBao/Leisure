@@ -213,7 +213,7 @@
     
     [self.scrollView addSubview:self.hotTableView];
     
-    [self loadhotNewData];
+//    [self loadhotNewData];
     
 }
 
@@ -298,14 +298,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //根据标识来确定数据源
     return _requestSort == 0 ? self.addtimeListArray.count : self.hotListArray.count;
-    
-//    if ([self.sort isEqualToString:@"addtime"]) {
-//        return self.addtimeListArray.count;
-//    } else {
-//        return self.hotListArray.count;
-//    }
-    
-//    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -347,10 +339,10 @@
     if (self.scrollView.contentOffset.x == 0) {
         self.segment.selectedSegmentIndex = 0;
         _requestSort = 0;
-        if (!self.addtimeListArray.count) {
-            return;
-        }
-        [self loadaddtimeNewData];
+//        if (!self.addtimeListArray.count) {
+//            return;
+//        }
+//        [self loadaddtimeNewData];
     } else if (self.scrollView.contentOffset.x == ScreenWidth) {
         self.segment.selectedSegmentIndex = 1;
         _requestSort = 1;

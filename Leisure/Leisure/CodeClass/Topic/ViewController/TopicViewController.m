@@ -215,7 +215,7 @@
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
     self.hotTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadHotNewData)];
     // 马上进入刷新状态
-    [self.hotTableView.mj_header beginRefreshing];
+//    [self.hotTableView.mj_header beginRefreshing];
     //上拉加载更多
     self.hotTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadHotMoreData)];
     
@@ -266,6 +266,8 @@
     [self createScrollView];
     [self createTableView];
     [self createHotTableView];
+    
+    [self requestDataWithSort:@"addtime"];
     
 }
 
@@ -340,10 +342,10 @@
         if (0 == num) {
             _requestSort = 0;
             _segment.selectedSegmentIndex = 0;
-            if (self.listArray.count != 0) {
-                return;
-            }
-            [self loadaddtimeNewData];
+//            if (self.listArray.count != 0) {
+//                return;
+//            }
+//            [self loadaddtimeNewData];
         } else {
             _requestSort = 1;
             _segment.selectedSegmentIndex = 1;

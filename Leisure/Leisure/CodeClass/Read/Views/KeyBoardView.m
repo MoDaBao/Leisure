@@ -43,7 +43,7 @@
     self.textView = [[UITextView alloc] init];
     self.textView.delegate = self;
     CGFloat textX = kStartLocation * 0.5;
-    self.textViewWidth = frame.size.width -2 * textX;
+    self.textViewWidth = frame.size.width - 2 * textX;
     self.textView.frame = CGRectMake(textX, kStartLocation * 0.2,self.textViewWidth , frame.size.height- 2 * kStartLocation * 0.2);
     self.textView.backgroundColor = [UIColor colorWithRed:233.0 / 255 green:232.0 / 255 blue:250.0 / 255 alpha:1.0];
     self.textView.font = [UIFont systemFontOfSize:20.0];
