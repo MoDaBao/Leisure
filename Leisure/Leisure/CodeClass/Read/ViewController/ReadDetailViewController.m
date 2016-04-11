@@ -14,8 +14,9 @@
 @interface ReadDetailViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic) NSInteger start;//请求开始的位置
-
 @property (nonatomic) NSInteger limit;//每次请求的数据条数
+@property (nonatomic, assign) NSInteger addtimeStart; // 最新开始的位置
+@property (nonatomic, assign) NSInteger hotStart; // 热门开始的位置
 
 @property (nonatomic, strong) NSMutableArray *hotListArray;//热门
 
@@ -55,6 +56,127 @@
 }
 
 
+#pragma mark -----数据加载-----
+
+- (void)loadaddtimeNewData {
+    _addtimeStart = 0;
+    [self requestWithSort:@"addtime"];
+}
+
+- (void)loadaddtimeMoreData {
+    _addtimeStart += _limit;
+    [self requestWithSort:@"addtime"];
+}
+
+- (void)loadhotNewData {
+    _hotStart = 0;
+    [self requestWithSort:@"hot"];
+}
+
+- (void)loadhotMoreData {
+    _hotStart += _limit;
+    [self requestWithSort:@"hot"];
+}
+
+/**
+ *  请求数据
+ */
+- (void)requestWithSort:(NSString *)sort {
+    
+    // 确定请求开始的位置
+    if ([sort isEqualToString:@"hot"]) {
+        _start = _hotStart;
+    } else {
+        _start = _addtimeStart;
+    }
+
+    
+    [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+        NSArray *listArr = dataDic[@"data"][@"list"];
+        //        NSLog(@"datadic %@",dataDic);
+        self.sort = sort;
+        
+        // 确定是否清空数组
+        if ([sort isEqualToString:@"hot"]) {
+            if (_start == 0) {
+                [self.hotListArray removeAllObjects];
+            }
+        } else {
+            if (_start == 0) {
+                [self.addtimeListArray removeAllObjects];
+            }
+        }
+        
+        for (NSDictionary *dic in listArr) {
+            ReadDetailModel *model = [[ReadDetailModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.addtimeListArray addObject:model];
+            } else {
+                [self.hotListArray addObject:model];
+            }
+        }
+        //回到主线程
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_async(mainQueue, ^{
+            
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView reloadData];
+            } else {
+                [self.hotTableView.mj_header endRefreshing];
+                [self.hotTableView.mj_footer endRefreshing];
+                [self.hotTableView reloadData];
+            }
+        });
+        
+    } requsetError:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+///**
+// *  上拉加载
+// */
+//- (void)requestRefreshDataWithSort:(NSString *)sort {
+//    [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start += 10), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
+//        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+//        
+//        self.sort = sort;
+//        NSArray *listArr = dataDic[@"data"][@"list"];
+//        for (NSDictionary *dic in listArr) {
+//            ReadDetailModel *model = [[ReadDetailModel alloc] init];
+//            [model setValuesForKeysWithDictionary:dic];
+//            if ([sort isEqualToString:@"addtime"]) {
+//                [self.addtimeListArray addObject:model];
+//            } else {
+//                [self.hotListArray addObject:model];
+//            }
+//        }
+//        //回到主线程
+//        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//        dispatch_async(mainQueue, ^{
+//            
+//            if ([sort isEqualToString:@"addtime"]) {
+//                [self.tableView.mj_footer endRefreshing];
+//                [self.tableView reloadData];
+//            } else {
+//                [self.hotTableView.mj_footer endRefreshing];
+//                [self.hotTableView reloadData];
+//            }
+//            
+//        });
+//        
+//        
+//        
+//    } requsetError:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+//}
+
+
 #pragma mark -----创建视图-----
 
 //创建滚动视图
@@ -90,6 +212,9 @@
     self.hotTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadhotMoreData)];
     
     [self.scrollView addSubview:self.hotTableView];
+    
+    [self loadhotNewData];
+    
 }
 
 //创建最新表视图
@@ -110,6 +235,8 @@
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadaddtimeMoreData)];
     
     [self.scrollView addSubview:self.tableView];
+    
+    [self loadaddtimeNewData];
 }
 
 
@@ -121,6 +248,8 @@
     _requestSort = 0;//默认请求最新
     _start = 0;//默认第一条数据为起始位置
     _limit = 10;//默认每次请求10条数据
+    _addtimeStart = 0;
+    _hotStart = 0;
     
     self.segment = [[UISegmentedControl alloc] initWithItems:@[@"最新", @"热门"]];
     self.segment.frame = CGRectMake(0, 0, 100, 30);
@@ -132,7 +261,7 @@
     [self createAddTimeTableView];
     [self createHotTableView];
     
-    [self requestWithSort:@"addtime"];
+    
     
 }
 
@@ -147,116 +276,15 @@
         if (self.hotListArray.count) {
             return;
         }
-        [self requestWithSort:@"hot"];
+        [self loadhotNewData];
     } else {
         _requestSort = 0;
         if (self.addtimeListArray.count) {
             return;
         }
-        [self requestWithSort:@"addtime"];
+        [self loadaddtimeNewData];
     }
     
-}
-
-
-#pragma mark -----数据加载-----
-
-- (void)loadaddtimeNewData {
-    [self requestWithSort:@"addtime"];
-}
-
-- (void)loadaddtimeMoreData {
-    [self requestRefreshDataWithSort:@"addtime"];
-}
-
-- (void)loadhotNewData {
-    [self requestWithSort:@"hot"];
-}
-
-- (void)loadhotMoreData {
-    [self requestRefreshDataWithSort:@"hot"];
-}
-
-/**
- *  请求数据
- */
-- (void)requestWithSort:(NSString *)sort {
-    [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start = 0), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
-        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
-        NSArray *listArr = dataDic[@"data"][@"list"];
-//        NSLog(@"datadic %@",dataDic);
-        self.sort = sort;
-        
-        if ([sort isEqualToString:@"addtime"]) {
-            [self.addtimeListArray removeAllObjects];
-        } else {
-            [self.hotListArray removeAllObjects];
-        }
-        
-        for (NSDictionary *dic in listArr) {
-            ReadDetailModel *model = [[ReadDetailModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            if ([sort isEqualToString:@"addtime"]) {
-                [self.addtimeListArray addObject:model];
-            } else {
-                [self.hotListArray addObject:model];
-            }
-        }
-        //回到主线程
-        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        dispatch_async(mainQueue, ^{
-            
-            if ([sort isEqualToString:@"addtime"]) {
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
-            } else {
-                [self.hotTableView reloadData];
-                [self.hotTableView.mj_header endRefreshing];
-            }
-        });
-        
-    } requsetError:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
-}
-
-/**
- *  上拉加载
- */
-- (void)requestRefreshDataWithSort:(NSString *)sort {
-    [NetWorkRequestManager requestWithType:POST urlString:READDETAILLIST_URL parDic:@{@"typeid" : _typeID, @"start" : @(_start += 10), @"limit" : @(_limit), @"sort" : sort} requestFinish:^(NSData *data) {
-        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
-        
-        self.sort = sort;
-        NSArray *listArr = dataDic[@"data"][@"list"];
-        for (NSDictionary *dic in listArr) {
-            ReadDetailModel *model = [[ReadDetailModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            if ([sort isEqualToString:@"addtime"]) {
-                [self.addtimeListArray addObject:model];
-            } else {
-                [self.hotListArray addObject:model];
-            }
-        }
-        //回到主线程
-        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        dispatch_async(mainQueue, ^{
-            
-            if ([sort isEqualToString:@"addtime"]) {
-                [self.tableView reloadData];
-                [self.tableView.mj_footer endRefreshing];
-            } else {
-                [self.hotTableView reloadData];
-                [self.hotTableView.mj_footer endRefreshing];
-            }
-            
-        });
-        
-        
-        
-    } requsetError:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
 }
 
 
@@ -308,6 +336,7 @@
     ReadDetailModel *model = (_requestSort == 0) ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
     ReadInfoViewController *readInfoVC = [[ReadInfoViewController alloc] init];
     readInfoVC.contentid = model.contentID;
+    readInfoVC.detailModel = model;
     [self.navigationController pushViewController:readInfoVC animated:YES];
 }
 
@@ -321,14 +350,14 @@
         if (!self.addtimeListArray.count) {
             return;
         }
-        [self requestWithSort:@"addtime"];
+        [self loadaddtimeNewData];
     } else if (self.scrollView.contentOffset.x == ScreenWidth) {
         self.segment.selectedSegmentIndex = 1;
         _requestSort = 1;
         if (!self.hotListArray.count) {
             return;
         }
-        [self requestWithSort:@"hot"];
+        [self loadhotNewData];
     }
 }
 

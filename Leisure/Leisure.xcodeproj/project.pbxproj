@@ -52,6 +52,10 @@
 		E78E17281CAD4A0E0022A252 /* RadioDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E78E17271CAD4A0D0022A252 /* RadioDetailModel.m */; };
 		E79CA8D41CAD4EE800EE5198 /* RadioDetailModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E79CA8D31CAD4EE800EE5198 /* RadioDetailModelCell.m */; };
 		E79CA8D61CAD4EF600EE5198 /* RadioDetailModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E79CA8D51CAD4EF600EE5198 /* RadioDetailModelCell.xib */; };
+		E79F54EF1CBB8CB1004C6575 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F54EE1CBB8CB1004C6575 /* DBManager.m */; };
+		E79F54F21CBB9783004C6575 /* ReadDetailDB.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F54F11CBB9783004C6575 /* ReadDetailDB.m */; };
+		E79F54F61CBBAA3C004C6575 /* UserCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F54F41CBBAA3C004C6575 /* UserCollectViewController.m */; };
+		E79F54F71CBBAA3C004C6575 /* UserCollectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E79F54F51CBBAA3C004C6575 /* UserCollectViewController.xib */; };
 		E7A61B6C1CB7B61A0007D9A9 /* UserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A61B6B1CB7B61A0007D9A9 /* UserInfoManager.m */; };
 		E7A61B6F1CB7CAFC0007D9A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A61B6E1CB7CAFC0007D9A9 /* LoginViewController.m */; };
 		E7A61B721CB7CB0A0007D9A9 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A61B711CB7CB0A0007D9A9 /* RegistViewController.m */; };
@@ -203,6 +207,13 @@
 		E79CA8D21CAD4EE800EE5198 /* RadioDetailModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioDetailModelCell.h; sourceTree = "<group>"; };
 		E79CA8D31CAD4EE800EE5198 /* RadioDetailModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioDetailModelCell.m; sourceTree = "<group>"; };
 		E79CA8D51CAD4EF600EE5198 /* RadioDetailModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioDetailModelCell.xib; sourceTree = "<group>"; };
+		E79F54ED1CBB8CB1004C6575 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		E79F54EE1CBB8CB1004C6575 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		E79F54F01CBB9783004C6575 /* ReadDetailDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDetailDB.h; sourceTree = "<group>"; };
+		E79F54F11CBB9783004C6575 /* ReadDetailDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadDetailDB.m; sourceTree = "<group>"; };
+		E79F54F31CBBAA3C004C6575 /* UserCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCollectViewController.h; sourceTree = "<group>"; };
+		E79F54F41CBBAA3C004C6575 /* UserCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCollectViewController.m; sourceTree = "<group>"; };
+		E79F54F51CBBAA3C004C6575 /* UserCollectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectViewController.xib; sourceTree = "<group>"; };
 		E7A61B6A1CB7B61A0007D9A9 /* UserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoManager.h; sourceTree = "<group>"; };
 		E7A61B6B1CB7B61A0007D9A9 /* UserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoManager.m; sourceTree = "<group>"; };
 		E7A61B6D1CB7CAFC0007D9A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -433,6 +444,7 @@
 		E72C36ED1CAA6C1600241C73 /* CodeClass */ = {
 			isa = PBXGroup;
 			children = (
+				E79F54EC1CBB8C79004C6575 /* Collect */,
 				E7A61B691CB7B6000007D9A9 /* LoginAndRegist */,
 				E72C36EE1CAA6C1600241C73 /* Meun */,
 				E72C36EF1CAA6C1600241C73 /* Product */,
@@ -602,6 +614,8 @@
 				E7A7F29B1CB8A5D000620FCB /* CommentModel.m */,
 				E7A7F29D1CB8A5E800620FCB /* CommentUserModel.h */,
 				E7A7F29E1CB8A5E800620FCB /* CommentUserModel.m */,
+				E79F54F01CBB9783004C6575 /* ReadDetailDB.h */,
+				E79F54F11CBB9783004C6575 /* ReadDetailDB.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -721,8 +735,20 @@
 				E70E276E1CB358C30092B426 /* NSTimer+Addition.m */,
 				E71C5A661CB509D200801E82 /* PlayerManager.h */,
 				E71C5A671CB509D200801E82 /* PlayerManager.m */,
+				E79F54ED1CBB8CB1004C6575 /* DBManager.h */,
+				E79F54EE1CBB8CB1004C6575 /* DBManager.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		E79F54EC1CBB8C79004C6575 /* Collect */ = {
+			isa = PBXGroup;
+			children = (
+				E79F54F31CBBAA3C004C6575 /* UserCollectViewController.h */,
+				E79F54F41CBBAA3C004C6575 /* UserCollectViewController.m */,
+				E79F54F51CBBAA3C004C6575 /* UserCollectViewController.xib */,
+			);
+			path = Collect;
 			sourceTree = "<group>";
 		};
 		E7A61B691CB7B6000007D9A9 /* LoginAndRegist */ = {
@@ -880,6 +906,7 @@
 				E7FEE6F11CABFAD20022A97B /* TopicInfoViewController.xib in Resources */,
 				E78E17241CAD14620022A252 /* RadioListModelCell.xib in Resources */,
 				E78E171F1CACD1AD0022A252 /* ReadDetailModelCell.xib in Resources */,
+				E79F54F71CBBAA3C004C6575 /* UserCollectViewController.xib in Resources */,
 				E72C36C61CAA6AFE00241C73 /* Assets.xcassets in Resources */,
 				E71C5A9F1CB55E8F00801E82 /* PlayRadioView.xib in Resources */,
 				E7FEE6BF1CAB81E70022A97B /* ProductInfoViewController.xib in Resources */,
@@ -1025,16 +1052,19 @@
 				E7E1318F1CAAA04300C8967F /* RadioViewController.m in Sources */,
 				E7FEE6D81CABC51C0022A97B /* RadioCarouselModel.m in Sources */,
 				E72C36BE1CAA6AFE00241C73 /* AppDelegate.m in Sources */,
+				E79F54F21CBB9783004C6575 /* ReadDetailDB.m in Sources */,
 				E71C5A651CB4E1DC00801E82 /* NoPicTopicListModelCell.m in Sources */,
 				E78E17091CACB71E0022A252 /* BaseCollectionViewCell.m in Sources */,
 				E7E131941CAAA06900C8967F /* TopicViewController.m in Sources */,
 				E78E17151CACBBD60022A252 /* FactoryCollectionViewCell.m in Sources */,
 				E71C5AA71CB5601E00801E82 /* PlayCoverView.m in Sources */,
+				E79F54F61CBBAA3C004C6575 /* UserCollectViewController.m in Sources */,
 				E7FEE6B41CAB6FD70022A97B /* ReadDetailModel.m in Sources */,
 				E70E276C1CB358B60092B426 /* CycleScrollView.m in Sources */,
 				E72C36BB1CAA6AFE00241C73 /* main.m in Sources */,
 				E7FAFC2D1CAB6D2900DBAD25 /* ReadDetailViewController.m in Sources */,
 				E7FEE6D21CABC0760022A97B /* RadioListModel.m in Sources */,
+				E79F54EF1CBB8CB1004C6575 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

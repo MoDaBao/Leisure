@@ -9,6 +9,8 @@
 #import "ReadInfoViewController.h"
 #import "ReadInfoModel.h"
 #import "CommentViewController.h"
+#import "LoginViewController.h"
+#import "ReadDetailDB.h"
 
 @interface ReadInfoViewController ()
 
@@ -74,25 +76,77 @@
     
     UIButton *collect = [UIButton buttonWithType:(UIButtonTypeCustom)];
     collect.frame = CGRectMake(60, 0, 20, 20);
-    [collect setBackgroundImage:[UIImage imageNamed:@"shoucang"] forState:(UIControlStateNormal)];
+    [collect setBackgroundImage:[UIImage imageNamed:@"cshoucang"] forState:(UIControlStateNormal)];
+    [collect addTarget:self action:@selector(collect:) forControlEvents:UIControlEventTouchUpInside];
+    
     UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithCustomView:collect];
     
     self.navigationItem.rightBarButtonItems = @[shareButton, commentButton, collectButton];
+    
+    //查询本条数据是否已经存储，如果已经存储将收藏按钮改成收藏状态
+    ReadDetailDB *db = [[ReadDetailDB alloc] init];
+    NSArray *array = [db selectAllDataWithUserID:[UserInfoManager getUserID]];
+    for (ReadDetailModel *model in array) {
+        if ([model.title isEqualToString:_detailModel.title]) {
+            [collect setBackgroundImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
+            break;
+        }
+    }
 }
 
 
 #pragma mark -----按钮方法-----
 
+//分享按钮
 - (void)shareAction:(UIButton *)button {
     
 }
 
+//评论按钮
 - (void)commentButton:(UIButton *)button {
-    CommentViewController *commentVC = [[CommentViewController alloc] init];
-    commentVC.contentid = self.contentid;
-    [self.navigationController pushViewController:commentVC animated:YES];
+    //如果用户已经登录 直接跳到评论页面，如果没有，先登录
+    if (![[UserInfoManager getUserID] isEqualToString:@" "]) {//已经登录
+        CommentViewController *commentVC = [[CommentViewController alloc] init];
+        commentVC.contentid = self.contentid;
+        [self.navigationController pushViewController:commentVC animated:YES];
+    } else {//未登录
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"LoginAndRegist" bundle:nil];
+        LoginViewController *loginVC = [storyBoard instantiateInitialViewController];
+        [self.navigationController presentViewController:loginVC animated:YES completion:nil];
+    }
+    
 }
 
+//收藏按钮
+- (void)collect:(UIButton *)button {
+    
+    //如果用户已经登录 直接收藏 如果没有先登录
+    if ([[UserInfoManager getUserID] isEqualToString:@" "]) {//未登录
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"LoginAndRegist" bundle:nil];
+        LoginViewController *loginVC = [storyBoard instantiateInitialViewController];
+        [self.navigationController presentViewController:loginVC animated:YES completion:nil];
+    } else {//已经登录
+        //创建数据表
+        ReadDetailDB *db = [[ReadDetailDB alloc] init];
+        [db createDataTable];//如果不存在就创建
+        //查询数据是否存储
+        NSArray *array = [db selectAllDataWithUserID:[UserInfoManager getUserID]];
+        for (ReadDetailModel *model in array) {
+            if ([model.title isEqualToString:_detailModel.title]) {//如果已经存储就删除
+                [db deleteWithTitle:_detailModel.title];
+                [button setBackgroundImage:[UIImage imageNamed:@"cshoucang"] forState:UIControlStateNormal];//把按钮状态设置为未收藏状态
+                return;
+            }
+        }
+        //没有已存储的数据那就存储
+        [db insertReadDetailModel:_detailModel];
+        [button setBackgroundImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
+    }
+    
+}
+
+
+#pragma mark -----viewDidLoad-----
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

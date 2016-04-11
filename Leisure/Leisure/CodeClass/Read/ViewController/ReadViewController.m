@@ -117,6 +117,11 @@
     [self createCollectionView];
 }
 
+//通常是用来加载数据类操作
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 
 #pragma mark -----数据加载-----
 
@@ -273,9 +278,19 @@
 }
 
 
+#pragma mark -----didReceiveMemoryWarning-----
+
+//当应用程序收到内存警告时会被触发；而且是工程中所有的控制器对象(vieController类被创建的对象，并且对象没有被释放)都会收到，
+//当收到内存警告时，要释放可再生的内存数据，通过方法可将资源重新加载回来
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    //在内存警告方法中，释放已经加载并且不再当前window上显示的根视图，
+    //因为控制器的根视图是懒加载
+    if ([self isViewLoaded] && ![self.view window]) {
+        self.view = nil;
+    }
 }
 
 /*

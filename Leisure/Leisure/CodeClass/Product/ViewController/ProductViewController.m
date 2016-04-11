@@ -84,7 +84,7 @@
             [model setValuesForKeysWithDictionary:dic];
             [self.listArray addObject:model];
         }
-        
+        NSLog(@"self.listArray is %@",self.listArray);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

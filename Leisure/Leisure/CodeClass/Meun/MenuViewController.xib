@@ -52,6 +52,9 @@
                         <constraint firstAttribute="width" constant="25" id="s2U-Ys-U7T"/>
                     </constraints>
                     <state key="normal" backgroundImage="iconfont-xiazai"/>
+                    <connections>
+                        <action selector="download:" destination="-1" eventType="touchUpInside" id="Lng-RC-dVR"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5be-99-vg8" userLabel="likeBtn">
                     <rect key="frame" x="85" y="72" width="20" height="20"/>
@@ -60,6 +63,9 @@
                         <constraint firstAttribute="width" constant="20" id="xbt-aS-2WR"/>
                     </constraints>
                     <state key="normal" backgroundImage="29-heart"/>
+                    <connections>
+                        <action selector="collect:" destination="-1" eventType="touchUpInside" id="W3o-KD-ZgM"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,7 +83,7 @@
                 <constraint firstAttribute="bottom" secondItem="erd-64-g25" secondAttribute="bottom" id="w94-pA-cqO"/>
                 <constraint firstAttribute="trailing" secondItem="erd-64-g25" secondAttribute="trailing" id="zXa-a3-qEP"/>
             </constraints>
-            <point key="canvasLocation" x="220" y="261"/>
+            <point key="canvasLocation" x="23" y="101"/>
         </view>
     </objects>
     <resources>

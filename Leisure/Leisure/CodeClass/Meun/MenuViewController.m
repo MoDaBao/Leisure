@@ -14,6 +14,7 @@
 #import "TopicViewController.h"
 #import "ProductViewController.h"
 #import "LoginViewController.h"
+#import "UserCollectViewController.h"
 
 @interface MenuViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -25,7 +26,7 @@
 @implementation MenuViewController
 
 
-#pragma mark -----loginButton方法-----
+#pragma mark -----按钮方法-----
 
 - (IBAction)login:(id)sender {
     
@@ -52,6 +53,14 @@
     
 }
 
+- (IBAction)collect:(id)sender {
+    UserCollectViewController *userCollectVC = [[UserCollectViewController alloc] init];
+    UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:userCollectVC];
+    [self presentViewController:naVC animated:YES completion:nil];
+}
+
+- (IBAction)download:(id)sender {
+}
 
 #pragma mark -----viewDidLoad-----
 

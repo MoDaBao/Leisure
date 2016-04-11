@@ -64,9 +64,7 @@
                 //保存用户icon
                 [UserInfoManager saveUserIcon:[[dataDic objectForKey:@"data"] objectForKey:@"icon"]];
                 
-                [self.maleBtn setImage:[UIImage imageNamed:@"29-heart"] forState:UIControlStateNormal];
-                
-//                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
         });
     } requsetError:^(NSError *error) {

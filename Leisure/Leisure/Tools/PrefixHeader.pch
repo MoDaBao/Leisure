@@ -33,4 +33,7 @@
 
 #import "NSString+Html.h"
 
+#import <FMDB/FMDB.h>
+#import "DBManager.h"
+
 #endif /* PrefixHeader_pch */
