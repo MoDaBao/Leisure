@@ -13,12 +13,12 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import "URLHeaderDefine.h"
+#import "ConstantHeaderDefine.h"
+
 #import "NetWorkRequestManager.h"
 
 #import "FactoryTableViewCell.h"
 #import "FactoryCollectionViewCell.h"
-
-#import "ConstantHeaderDefine.h"
 
 #import "BaseModel.h"
 #import "BaseTableViewCell.h"
@@ -27,13 +27,16 @@
 
 #import <UIImageView+WebCache.h>
 #import <MJRefresh/MJRefresh.h>
+#import <FMDB/FMDB.h>
 
 #import "PlayerManager.h"
 #import "UserInfoManager.h"
+#import "DBManager.h"
+#import "DownLoadManager.h"
 
 #import "NSString+Html.h"
 
-#import <FMDB/FMDB.h>
-#import "DBManager.h"
+
+
 
 #endif /* PrefixHeader_pch */

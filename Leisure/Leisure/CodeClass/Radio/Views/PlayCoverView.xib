@@ -38,6 +38,9 @@
                         <constraint firstAttribute="width" secondItem="GBw-Ii-2N1" secondAttribute="height" multiplier="1:1" id="hsE-t0-tNP"/>
                     </constraints>
                     <state key="normal" image="iconfont-xiazai"/>
+                    <connections>
+                        <action selector="downloadMusic:" destination="7Em-84-fKA" eventType="touchUpInside" id="xps-W2-ORS"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7v-Nb-dcC">
                     <rect key="frame" x="361" y="584" width="42" height="21"/>

@@ -113,7 +113,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"RadioDetailModelCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([RadioDetailModel class])];
     
     self.headView = [[[NSBundle mainBundle] loadNibNamed:@"RadioDetailInfoView" owner:nil options:nil] lastObject];
-    self.headView.frame = CGRectMake(0, 0, ScreenWidth, 235);
+    self.headView.frame = CGRectMake(0, 0, ScreenWidth, 250);
     self.tableView.tableHeaderView = self.headView;
     
     [self.view addSubview:self.tableView];

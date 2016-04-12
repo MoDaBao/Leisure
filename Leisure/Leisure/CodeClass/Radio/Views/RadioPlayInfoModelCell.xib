@@ -36,7 +36,10 @@
                             <constraint firstAttribute="width" constant="30" id="OnW-0U-CBy"/>
                             <constraint firstAttribute="height" constant="30" id="Y95-cc-8WZ"/>
                         </constraints>
-                        <state key="normal" backgroundImage="iconfont-xiazai"/>
+                        <state key="normal" backgroundImage="play"/>
+                        <connections>
+                            <action selector="downloadMusic:" destination="Lux-9q-jK6" eventType="touchUpInside" id="4Me-ch-CA4"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9RI-Se-Au9">
                         <rect key="frame" x="20" y="50" width="37.5" height="20"/>
@@ -62,7 +65,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="authNameLabel" destination="9RI-Se-Au9" id="euR-u8-onB"/>
-                <outlet property="downLoadBtn" destination="0hN-re-onj" id="8Hh-EJ-41W"/>
                 <outlet property="markView" destination="wWl-va-wmq" id="wx8-ro-dzh"/>
                 <outlet property="titleLabel" destination="tat-bh-utB" id="iYe-vw-Bhj"/>
             </connections>
@@ -70,6 +72,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="iconfont-xiazai" width="35" height="35"/>
+        <image name="play" width="200" height="200"/>
     </resources>
 </document>

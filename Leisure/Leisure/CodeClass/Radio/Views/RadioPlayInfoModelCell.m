@@ -7,7 +7,7 @@
 //
 
 #import "RadioPlayInfoModelCell.h"
-#import "RadioPlayInfoModel.h"
+
 
 @implementation RadioPlayInfoModelCell
 
@@ -22,11 +22,30 @@
 - (void)setDataWithModel:(RadioPlayInfoModel *)model {
     self.titleLabel.text = model.title;
     self.authNameLabel.text = [NSString stringWithFormat:@"by:%@",model.authorInfo.uname];
+//    self.playInfoModel = model;
     if (self.selected) {
         self.markView.backgroundColor = [UIColor orangeColor];
     } else {
         self.markView.backgroundColor = [UIColor clearColor];
     }
 }
+
+//- (IBAction)downloadMusic:(id)sender {
+//    
+//    DownLoad *download = [[DownLoadManager shareInstance] addDownLoadWithUrl:self.playInfoModel.musicUrl];
+//    download.downLoading = ^(float progress) {
+//        NSLog(@"%.2f%%", progress);
+//    };
+//    download.downloadFinish = ^(NSString *url, NSString *savaPath) {
+//        [[DownLoadManager shareInstance] removeDownLoadWithUrl:url];
+//        NSLog(@"%@",savaPath);
+//    };
+////    download.downLoading = ^
+//    NSLog(@"111111");
+//    
+//    [download start];
+//    
+//}
+
 
 @end

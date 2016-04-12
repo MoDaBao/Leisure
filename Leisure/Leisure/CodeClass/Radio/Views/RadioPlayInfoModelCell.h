@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "RadioPlayInfoModel.h"
 
 @interface RadioPlayInfoModelCell : BaseTableViewCell
 
@@ -17,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *authNameLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
+
+//@property (nonatomic, strong) RadioPlayInfoModel *playInfoModel;
 
 
 @end

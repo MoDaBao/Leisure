@@ -17,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *downButton;
 
 @property (nonatomic, strong) RadioDetailModel *radioDetailModel;
-
+@property (nonatomic, strong) RadioPlayInfoModel *playInfoModel;
 
 @end

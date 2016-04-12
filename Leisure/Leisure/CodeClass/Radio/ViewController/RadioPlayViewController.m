@@ -228,6 +228,10 @@
     
     [cell setDataWithModel:model];
     
+//    [((RadioPlayInfoModelCell *)cell).downLoadBtn addTarget:self action:@selector(downloadMusic:) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    
     return cell;
 }
 
@@ -242,6 +246,10 @@
     PlayerManager *manager = [PlayerManager shareInstances];
     [manager changeMusicWithIndex:indexPath.row];
 
+}
+
+- (void)downloadMusic:(UIButton *)downloadBtn {
+    NSLog(@"111111");
 }
 
 - (void)didReceiveMemoryWarning {
