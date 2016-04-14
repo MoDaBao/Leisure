@@ -8,7 +8,7 @@
 
 #import "PlayCoverView.h"
 #import "PlayerManager.h"
-#import "RadioPlayInfoModel.h"
+#import "RadioDetailDB.h"
 
 @implementation PlayCoverView
 
@@ -22,6 +22,11 @@
 - (void)setRadioDetailModel:(RadioDetailModel *)radioDetailModel {
     [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:radioDetailModel.coverimg]];
     self.titleLabel.text = radioDetailModel.title;
+    if (_radioDetailModel != radioDetailModel) {
+        _radioDetailModel = nil;
+        _radioDetailModel = radioDetailModel;
+    }
+//    self.radioDetailModel = radioDetailModel;
     self.playInfoModel = radioDetailModel.playInfo;
     [self.playSlider addTarget:self action:@selector(changeValue) forControlEvents:UIControlEventValueChanged];
 }
@@ -31,18 +36,37 @@
     [manager seekToNewTime:self.playSlider.value];
 }
 
-- (IBAction)downloadMusic:(id)sender {
-    DownLoad *download = [[DownLoadManager shareInstance] addDownLoadWithUrl:self.playInfoModel.musicUrl];
+- (IBAction)downloadMusic:(UIButton *)sender {
+    // 创建一个下载对象，并且用下载管理器进行管理
+//    DownLoad *download = [[DownLoadManager shareInstance] addDownLoadWithUrl:self.playInfoModel.musicUrl];
+    
+    DownLoad *download = [[DownLoadManager shareInstance] addDownLoadWithUrl:self.radioDetailModel.playInfo.musicUrl];
     download.downLoading = ^(float progress) {
         NSLog(@"%.2f%%", progress * 100);
+        [sender setTitle:[NSString stringWithFormat:@"%.2f%%",progress * 100] forState:UIControlStateNormal];
     };
+    // 监控下载完成
     download.downloadFinish = ^(NSString *url, NSString *savaPath) {
         [[DownLoadManager shareInstance] removeDownLoadWithUrl:url];
         NSLog(@"%@",savaPath);
+        // 1、UI变化
+//        [sender setTitle:@"完成" forState:UIControlStateNormal];
+        
+        // 2、数据保存、数据模型、本地音频路径
+        // 1>存电台详情列表数据
+        RadioDetailDB *radioDetailDB = [[RadioDetailDB alloc] init];
+        [radioDetailDB createDataTable];
+        [radioDetailDB insertReadDetailModel:_radioDetailModel andPath:savaPath];
+        
+        // 2>存playInfo
+        
+        
+        // 3、移除下载对象
+        [[DownLoadManager shareInstance] removeDownLoadWithUrl:url];
     };
-    //    download.downLoading = ^
     NSLog(@"111111");
     
+    // 开始下载
     [download start];
 }
 

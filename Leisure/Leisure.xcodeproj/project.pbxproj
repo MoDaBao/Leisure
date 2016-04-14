@@ -38,6 +38,7 @@
 		E72C37161CAA6EEE00241C73 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E72C37141CAA6EEE00241C73 /* MenuViewController.xib */; };
 		E72C37181CAA7BBE00241C73 /* nav_menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E72C37171CAA7BBE00241C73 /* nav_menu_icon@2x.png */; };
 		E762D4611CBD0F4700C4A92E /* DownLoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E762D4601CBD0F4700C4A92E /* DownLoadManager.m */; };
+		E767F56D1CBFC61600E4AB17 /* RadioPlayInfoModelDB.m in Sources */ = {isa = PBXBuildFile; fileRef = E767F56C1CBFC61600E4AB17 /* RadioPlayInfoModelDB.m */; };
 		E78E17091CACB71E0022A252 /* BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E78E17071CACB71E0022A252 /* BaseCollectionViewCell.m */; };
 		E78E170A1CACB71E0022A252 /* BaseCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78E17081CACB71E0022A252 /* BaseCollectionViewCell.xib */; };
 		E78E170E1CACB7DA0022A252 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E78E170C1CACB7DA0022A252 /* BaseTableViewCell.m */; };
@@ -80,6 +81,7 @@
 		E7A7F2AE1CB8D62A00620FCB /* KeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2AD1CB8D62A00620FCB /* KeyBoardView.m */; };
 		E7A7F2B11CB8FF4D00620FCB /* CommentModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A7F2B01CB8FF4D00620FCB /* CommentModelCell.m */; };
 		E7A7F2B31CB8FF5C00620FCB /* CommentModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A7F2B21CB8FF5C00620FCB /* CommentModelCell.xib */; };
+		E7BC25E21CBE3194002331EB /* RadioDetailDB.m in Sources */ = {isa = PBXBuildFile; fileRef = E7BC25E11CBE3194002331EB /* RadioDetailDB.m */; };
 		E7E1318A1CAAA01800C8967F /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E131881CAAA01800C8967F /* ProductViewController.m */; };
 		E7E1318B1CAAA01800C8967F /* ProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7E131891CAAA01800C8967F /* ProductViewController.xib */; };
 		E7E1318F1CAAA04300C8967F /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E1318D1CAAA04300C8967F /* RadioViewController.m */; };
@@ -185,6 +187,8 @@
 		E72C37171CAA7BBE00241C73 /* nav_menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_menu_icon@2x.png"; sourceTree = "<group>"; };
 		E762D45F1CBD0F4700C4A92E /* DownLoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadManager.h; sourceTree = "<group>"; };
 		E762D4601CBD0F4700C4A92E /* DownLoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadManager.m; sourceTree = "<group>"; };
+		E767F56B1CBFC61600E4AB17 /* RadioPlayInfoModelDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioPlayInfoModelDB.h; sourceTree = "<group>"; };
+		E767F56C1CBFC61600E4AB17 /* RadioPlayInfoModelDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioPlayInfoModelDB.m; sourceTree = "<group>"; };
 		E78E17061CACB71E0022A252 /* BaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionViewCell.h; sourceTree = "<group>"; };
 		E78E17071CACB71E0022A252 /* BaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCollectionViewCell.m; sourceTree = "<group>"; };
 		E78E17081CACB71E0022A252 /* BaseCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 		E7A7F2AF1CB8FF4D00620FCB /* CommentModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModelCell.h; sourceTree = "<group>"; };
 		E7A7F2B01CB8FF4D00620FCB /* CommentModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModelCell.m; sourceTree = "<group>"; };
 		E7A7F2B21CB8FF5C00620FCB /* CommentModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentModelCell.xib; sourceTree = "<group>"; };
+		E7BC25E01CBE3194002331EB /* RadioDetailDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioDetailDB.h; sourceTree = "<group>"; };
+		E7BC25E11CBE3194002331EB /* RadioDetailDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioDetailDB.m; sourceTree = "<group>"; };
 		E7E131871CAAA01800C8967F /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
 		E7E131881CAAA01800C8967F /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		E7E131891CAAA01800C8967F /* ProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductViewController.xib; sourceTree = "<group>"; };
@@ -447,6 +453,7 @@
 		E72C36ED1CAA6C1600241C73 /* CodeClass */ = {
 			isa = PBXGroup;
 			children = (
+				E767F56A1CBFB65200E4AB17 /* DownLoad */,
 				E79F54EC1CBB8C79004C6575 /* Collect */,
 				E7A61B691CB7B6000007D9A9 /* LoginAndRegist */,
 				E72C36EE1CAA6C1600241C73 /* Meun */,
@@ -543,6 +550,10 @@
 				E7A6E9591CB6317100B57EC3 /* RadioPlayInfoModel.m */,
 				E7A6E9631CB63C5700B57EC3 /* RadioShareInfoModel.h */,
 				E7A6E9641CB63C5700B57EC3 /* RadioShareInfoModel.m */,
+				E7BC25E01CBE3194002331EB /* RadioDetailDB.h */,
+				E7BC25E11CBE3194002331EB /* RadioDetailDB.m */,
+				E767F56B1CBFC61600E4AB17 /* RadioPlayInfoModelDB.h */,
+				E767F56C1CBFC61600E4AB17 /* RadioPlayInfoModelDB.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -744,6 +755,13 @@
 				E762D4601CBD0F4700C4A92E /* DownLoadManager.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		E767F56A1CBFB65200E4AB17 /* DownLoad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DownLoad;
 			sourceTree = "<group>";
 		};
 		E79F54EC1CBB8C79004C6575 /* Collect */ = {
@@ -1030,6 +1048,7 @@
 				E78E170E1CACB7DA0022A252 /* BaseTableViewCell.m in Sources */,
 				E7A7F2A51CB8A84100620FCB /* NSString+Html.m in Sources */,
 				E7FEE6EB1CABEEF40022A97B /* RadioPlayViewController.m in Sources */,
+				E767F56D1CBFC61600E4AB17 /* RadioPlayInfoModelDB.m in Sources */,
 				E7A7F29C1CB8A5D000620FCB /* CommentModel.m in Sources */,
 				E7A7F2AE1CB8D62A00620FCB /* KeyBoardView.m in Sources */,
 				E72C37111CAA6ED100241C73 /* DrawerViewController.m in Sources */,
@@ -1051,6 +1070,7 @@
 				E72C37151CAA6EEE00241C73 /* MenuViewController.m in Sources */,
 				E7FEE6CE1CABB1A80022A97B /* TopicUserInfoModel.m in Sources */,
 				E7A61B721CB7CB0A0007D9A9 /* RegistViewController.m in Sources */,
+				E7BC25E21CBE3194002331EB /* RadioDetailDB.m in Sources */,
 				E79CA8D41CAD4EE800EE5198 /* RadioDetailModelCell.m in Sources */,
 				E7A7F2B11CB8FF4D00620FCB /* CommentModelCell.m in Sources */,
 				E7FEE6B71CAB6FE90022A97B /* ReadCarouselModel.m in Sources */,
@@ -1229,6 +1249,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "";
 				GCC_PREFIX_HEADER = Leisure/Tools/PrefixHeader.pch;
 				INFOPLIST_FILE = Leisure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

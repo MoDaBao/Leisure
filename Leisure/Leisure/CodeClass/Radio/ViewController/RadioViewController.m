@@ -147,10 +147,10 @@
 - (void)createScrollView {
     self.scrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 164) animationDuration:2.0];
     
-    
+    __block RadioViewController *radioVC = self;
     self.scrollView.fetchContentViewAtIndex = ^ UIView * (NSInteger pageIndex) {
-        RadioCarouselModel *model = self.carouselArray[pageIndex];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * pageIndex, 0, ScreenWidth, self.scrollView.frame.size.height)];
+        RadioCarouselModel *model = radioVC.carouselArray[pageIndex];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * pageIndex, 0, ScreenWidth, radioVC.scrollView.frame.size.height)];
         [imageView sd_setImageWithURL:[NSURL URLWithString:model.img]];
         return imageView;
     };

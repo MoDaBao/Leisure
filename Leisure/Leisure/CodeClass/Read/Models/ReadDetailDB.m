@@ -30,7 +30,10 @@
     } else {
         //创建数据表
         NSString  *createSql = [NSString stringWithFormat:@"CREATE TABLE %@ (readID INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, userID text, title text, contentID text, content text, name text, coverimg text)", READDETAILTABLE];
-        if ([_dataBase executeUpdate:createSql]) {
+//#warning 取了布尔值和不取布尔值  结果相反
+        BOOL isCreate = [_dataBase executeUpdate:createSql];
+        if (isCreate) {
+//        if (![_dataBase executeUpdate:createSql]) {
             NSLog(@"数据表创建成功");
         } else {
             NSLog(@"数据表创建失败");

@@ -66,7 +66,7 @@
     // 获取caches文件夹
     NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
     // 创建一个视频文件夹
-    NSString *videoPath = [cachesPath stringByAppendingPathComponent:@"video"];
+    NSString *videoPath = [cachesPath stringByAppendingPathComponent:@"radio"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:videoPath]) {// 判断文件夹是否存在，若是不存在则创建
         [fileManager createDirectoryAtPath:videoPath withIntermediateDirectories:YES attributes:nil error:nil];

@@ -92,7 +92,8 @@
 - (void)createCoverView {
     self.playCoverView = [[[NSBundle mainBundle] loadNibNamed:@"PlayCoverView" owner:nil options:nil] lastObject];
     self.playCoverView.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, ScreenHeight - kNavigationBarHeight - 100);
-    [self.playCoverView setRadioDetailModel:self.detailListArray[self.selectPlayIndex]];
+    RadioDetailModel *model = self.detailListArray[self.selectPlayIndex];
+    [self.playCoverView setRadioDetailModel:model];
     [self.scrollView addSubview:self.playCoverView];
     
 }
@@ -104,11 +105,12 @@
     self.playRadioView.frame = playView.bounds;
     
     // 回调播放的位置
+    __block RadioPlayViewController *playVC = self;
     _playRadioView.selectRadioBlock = ^(NSInteger index){
         // 修改封面数据
 //        [self.playCoverView setRadioDetailModel:self.detailListArray[index]];
         //刷新数据
-        [self refreshUIWihtIndex:index];
+        [playVC refreshUIWihtIndex:index];
         
     };
     
@@ -151,6 +153,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    RadioDetailModel *model = self.detailListArray[0];
     
     [self createScrollView];
     [self createCoverView];

@@ -106,7 +106,7 @@
     </objects>
     <resources>
         <image name="player_next.png" width="40" height="40"/>
-        <image name="player_pause.png" width="50" height="50"/>
+        <image name="player_pause.png" width="22" height="22"/>
         <image name="player_prev.png" width="40" height="40"/>
     </resources>
 </document>

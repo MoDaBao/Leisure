@@ -28,6 +28,8 @@
 #pragma mark -数据库-
 #define SQLITENAME           @"leisure.sqlite" // 数据库名
 #define READDETAILTABLE      @"ReadDetail" // 阅读详情数据表
+#define RADIODETAILTABLE     @"RadioDetail"// 电台详情表明
+#define RADIOPLAYINFOTABLE   @"RadioPlayInfo"//
 
 
 #endif /* ConstantHeaderDefine_h */
